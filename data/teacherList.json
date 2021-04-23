@@ -1,0 +1,83 @@
+{
+  "status": 1,
+  "msg": "成功",
+  "data": {
+    "pageInfo": {
+      "total": 20,
+      "pageSize": 10,
+      "pageNo": 1
+    },
+    "list": [
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章",
+        "details": "张章是睿仕管理大中华区合伙..."
+      },
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章",
+        "details": "张章是睿仕管理大中华区合伙..."
+      },
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章",
+        "details": "张章是睿仕管理大中华区合伙..."
+      },
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章",
+        "details": "张章是睿仕管理大中华区合伙..."
+      },
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章",
+        "details": "张章是睿仕管理大中华区合伙..."
+      },
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章",
+        "details": "张章是睿仕管理大中华区合伙..."
+      },
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章",
+        "details": "张章是睿仕管理大中华区合伙..."
+      },
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章",
+        "details": "张章是睿仕管理大中华区合伙..."
+      },
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章",
+        "details": "张章是睿仕管理大中华区合伙..."
+      },
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章",
+        "details": "张章是睿仕管理大中华区合伙..."
+      }
+    ]
+  }
+}

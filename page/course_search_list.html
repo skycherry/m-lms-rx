@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>woskill</title>
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/lib/vant/index.css">
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/css/main.css">
+</head>
+<body>
+<div class="views" id="courseSearchPage" v-cloak>
+  <!-- 顶部导航 -->
+  <div class="wow-navbar">
+    <a href="./index.html" class="logo" v-show="!showSearch"><img src="../dist/images/logo.png" alt=""></a>
+    <div class="navbar-search-btn" @click="handleSearchBtnClick" v-show="!showSearch" v-text="searchKey"></div>
+    <div class="navbar-search" v-show="showSearch">
+      <!--show-action-->
+      <form action="/">
+        <van-search
+            ref="search"
+            v-model="searchValue"
+            placeholder="请输入搜索课程"
+            show-action
+            @search="handleSearch"
+            @cancel="handleSearchCancel"
+        ></van-search>
+      </form>
+    </div>
+  </div>
+  <!-- 搜索页面 -->
+  <div class="wow-search-page" v-show="showSearch">
+    <div class="search-hot-box">
+      <div class="title">热门搜索</div>
+      <ul class="search-hot-list">
+        <li v-for="(item, index) in hostCourseList"
+            :key="index">
+          <a :href="item.url" v-text="item.courseName"></a>
+        </li>
+      </ul>
+    </div>
+    <div class="search-sort">
+      <a href="./course_sort.html"
+         class="van-button van-button--info van-button--round van-button--plain van-button--block btn-sort"
+      >查看课程分类</a>
+    </div>
+  </div>
+  <!-- 正文内容 -->
+  <div class="page">
+    <div class="page-content">
+      <!-- 热门课程 -->
+      <section class="course-search-page">
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list
+              class="wow-course-list list-bg"
+              v-model="loading"
+              :finished="finished"
+              finished-text="没有更多了"
+              @load="onLoad">
+            <div class="list-item"
+                v-for="(item, index) in courseList"
+                :key="index">
+              <a :href="item.url" class="item-content">
+                <div class="item-thumb van-hairline--surround">
+                  <img :src="item.imgUrl" alt="">
+                </div>
+                <div class="item-tag" v-if="item.hot">
+                  <span class="tag-mark">热门</span>
+                </div>
+                <div class="item-info">
+                  <div class="info-profile" v-text="item.details"></div>
+                </div>
+              </a>
+            </div>
+          </van-list>
+        </van-pull-refresh>
+      </section>
+    </div>
+  </div>
+  <!-- 底部导航 -->
+  <van-tabbar v-model="tabbarActive" class="wow-tabbar">
+    <van-tabbar-item icon="index" url="./index.html">首页</van-tabbar-item>
+    <van-tabbar-item icon="sort" url="./course_sort.html">分类</van-tabbar-item>
+    <van-tabbar-item icon="my" url="./my.html">我的</van-tabbar-item>
+  </van-tabbar>
+</div>
+
+<!-- Path to Library JS-->
+<script src="../dist/lib/zepto.min.js"></script>
+<script src="../dist/lib/vue.min.js"></script>
+<script src="../dist/lib/vant/vant.min.js"></script>
+<!-- Path to Library JS-->
+<script src="../dist/js/common.js"></script>
+<script src="../dist/js/search_course.js"></script>
+</body>
+</html>

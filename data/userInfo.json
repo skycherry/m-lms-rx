@@ -1,0 +1,14 @@
+{
+  "status": 1,
+  "msg": "成功",
+  "data": {
+    "avatar": "../dist/images/c_pic2.jpg",
+    "username": "162733349757",
+    "sex": "",
+    "company": "ManpowerGroup",
+    "job": "前端开发工程师",
+    "industry": -1,
+    "scale": 4,
+    "nature": 3
+  }
+}

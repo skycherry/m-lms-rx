@@ -1,0 +1,14 @@
+{
+  "status": 1,
+  "msg": "成功",
+  "data": [
+    {
+      "url": "",
+      "imgUrl": "../dist/images/s_ban.jpg"
+    },
+    {
+      "url": "http://www.baidu.com",
+      "imgUrl": "https://img.yzcdn.cn/vant/apple-2.jpg"
+    }
+  ]
+}

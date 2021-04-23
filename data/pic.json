@@ -1,0 +1,7 @@
+{
+  "status": 1,
+  "msg": "成功",
+  "data": {
+    "imgUrl": "../dist/images/code.png"
+  }
+}

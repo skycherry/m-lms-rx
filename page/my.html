@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>woskill</title>
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/lib/vant/index.css">
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/css/main.css">
+</head>
+<body>
+<div class="views" id="myPage" v-cloak>
+  <!-- 顶部导航 -->
+  <div class="wow-navbar bg-white">
+    <div class="user-info">
+      <a href="javascript:history.back(-1)" class="nav-back" >
+        <i class="icon-back"></i>
+      </a>
+      <span class="user-thumb">
+        <van-uploader :after-read="afterRead">
+          <img :src="userInfo.avatar" alt="">
+        </van-uploader>
+      </span>
+      <span class="user-name van-ellipsis" v-text="nickname"></span>
+    </div>
+    <a href="#" class="nav-exit">退出登陆</a>
+  </div>
+  <!-- 正文内容 -->
+  <div class="page with-navbar2">
+    <div class="page-content">
+      <div class="my-base-info">
+        <div class="info-field js-input js-input-name">
+          <div class="info-label">姓名</div>
+          <div class="info-body">
+            <div class="info-fill">
+              <input type="text"
+                     v-model="userInfo.username"
+                     placeholder=""
+                     class="fill-control" @focus="clearError">
+            </div>
+            <div class="info-error"></div>
+          </div>
+        </div>
+        <div class="info-field js-input js-input-sex">
+          <div class="info-label">性别</div>
+          <div class="info-body">
+            <div class="info-fill">
+              <van-radio-group v-model="userInfo.sex" ref="inputSex" @change="clearError">
+                <van-radio name="0" icon-size="12px">男</van-radio>
+                <van-radio name="1" icon-size="12px">女</van-radio>
+              </van-radio-group>
+            </div>
+            <div class="info-error"></div>
+          </div>
+        </div>
+        <div class="info-field js-input js-input-company">
+          <div class="info-label">公司</div>
+          <div class="info-body">
+            <div class="info-fill">
+              <input type="text" v-model="userInfo.company" placeholder="" class="fill-control" @focus="clearError">
+            </div>
+            <div class="info-error"></div>
+          </div>
+        </div>
+        <div class="info-field js-input js-input-job">
+          <div class="info-label">职务</div>
+          <div class="info-body">
+            <div class="info-fill">
+              <input type="text" v-model="userInfo.job" placeholder="" class="fill-control" @focus="clearError">
+            </div>
+            <div class="info-error"></div>
+          </div>
+        </div>
+      </div>
+      <div class="my-extra-info">
+        <div class="extra-field">
+          <div class="field-title">企业行业类别</div>
+          <van-field
+              readonly
+              clickable
+              :value="industryStr"
+              placeholder="选择企业行业类别"
+              @click="handleShowPicker(1)">
+            <i slot="button" class="icon-go"></i>
+          </van-field>
+        </div>
+        <div class="extra-field">
+          <div class="field-title">企业规模</div>
+          <van-field
+              readonly
+              clickable
+              :value="scaleStr"
+              placeholder="选择企业规模"
+              @click="handleShowPicker(2)">
+            <i slot="button" class="icon-go"></i>
+          </van-field>
+        </div>
+        <div class="extra-field">
+          <div class="field-title">企业性质</div>
+          <van-field
+              readonly
+              clickable
+              v-model="natureStr"
+              placeholder="选择企业性质"
+              @click="handleShowPicker(3)">
+            <i slot="button" class="icon-go"></i>
+          </van-field>
+        </div>
+      </div>
+      <div class="my-info-op">
+        <div class="op-bar">
+          <van-button round type="info" class="btn-save" @click="handleSaveInfo">保存</van-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 弹窗 -->
+  <van-popup v-model="showPicker" position="bottom">
+    <van-picker
+        ref="picker"
+        show-toolbar
+        :default-index="pickerDefaultIndex"
+        :columns="columns"
+        @cancel="showPicker = false"
+        @confirm="onConfirm"
+    ></van-picker>
+  </van-popup>
+  <!-- 底部导航 -->
+  <van-tabbar v-model="tabbarActive" class="wow-tabbar">
+    <van-tabbar-item icon="index" url="./index.html">首页</van-tabbar-item>
+    <van-tabbar-item icon="sort" url="./course_sort.html">分类</van-tabbar-item>
+    <van-tabbar-item icon="my" url="./my.html">我的</van-tabbar-item>
+  </van-tabbar>
+</div>
+
+<!-- Path to Library JS-->
+<script src="../dist/lib/zepto.min.js"></script>
+<script src="../dist/lib/vue.min.js"></script>
+<script src="../dist/lib/vant/vant.min.js"></script>
+<!-- Path to Library JS-->
+<script src="../dist/js/my.js"></script>
+</body>
+</html>

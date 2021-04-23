@@ -1,0 +1,1129 @@
+@import "theme";
+*{
+  margin: 0;
+  padding: 0;
+}
+html, body{
+  width: 100%;
+  height: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  color: @gray;
+  font-size: 14px;
+}
+[v-cloak] {
+  display: none!important;
+}
+.views{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+.page{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  &.with-navbar{
+   .page-content{
+     padding-top: 70px;
+   }
+  }
+  &.with-navbar2{
+    .page-content{
+      padding-top: 64px;
+    }
+  }
+}
+.page-content{
+  height: 100%;
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 50px;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.wow-navbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: @grayF0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  padding: 18px 20px;
+  box-sizing: border-box;
+  &.bg-white{
+    background-color: @white;
+    padding: 8px 20px;
+    .nav-back{
+      margin-right: 0;
+    }
+    justify-content: space-between;
+  }
+  .navbar-title{
+    max-width: 200px;
+    color: @gray33;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+  }
+  .logo{
+    width: 81px;
+    height: 44px;
+    display: block;
+    margin-right: 8px;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .nav-back{
+    height: 24px;
+    display: inline-block;
+    padding: 3px 5px 3px 0;
+    margin-right: 10%;
+    vertical-align: middle;
+  }
+  .icon-back{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-image: url("../images/nav_back.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    vertical-align: middle;
+  }
+  .user-thumb{
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    margin-right: 5px;
+    img{
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
+  }
+  .user-name{
+    max-width: 120px;
+    display: inline-block;
+    color: @gray33;
+    font-size: 14px;
+    font-weight: bold;
+    vertical-align: middle;
+  }
+  .nav-exit{
+    padding: 5px;
+    color: @gray33;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .navbar-search-btn{
+    flex: 1;
+    height: 34px;
+    line-height: 34px;
+    font-size: 13px;
+    color: @grayB2;
+    background-color:@white;
+    border-radius: 30px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    &:before{
+      width: 16px;
+      height: 16px;
+      background-image: url("../images/zoom.png");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      content: "";
+      display: inline-block;
+      vertical-align: -3px;
+      margin-right: 6px;
+    }
+  }
+  .navbar-search{
+    flex: 1;
+  }
+  .van-search{
+    padding: 0;
+    background: none;
+  }
+  .van-cell{
+    //flex-flow: row-reverse;
+  }
+  .van-search__content{
+    border-radius: 30px;
+    background-color: @white;
+    padding-left: 12px;
+  }
+  .van-field__control{
+    letter-spacing: 1px;
+  }
+  .van-icon-search{
+    width: 16px;
+    height: 16px;
+    background-image: url("../images/zoom.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin-top: 4px;
+    &:before{
+      display: none;
+    }
+  }
+  .van-field__left-icon{
+    margin-right: 6px;
+  }
+  .van-search__action{
+    padding: 0 15px;
+  }
+  .van-field__control{
+    font-size: 13px;
+    &::-webkit-input-placeholder {
+      color: @grayB2;
+    }
+    &::-moz-placeholder {
+      color: @grayB2;
+    }
+  }
+}
+.wow-tabbar{
+  z-index: 9899;
+  &:after{
+    border-color: @grayF0;
+    border-bottom: 0;
+  }
+  .van-tabbar-item{
+    color: @grayB2;
+    font-size: 11px;
+  }
+  .van-tabbar-item--active{
+    color: @gray33;
+    .van-icon-course{
+      background-position: 0 -25px;
+    }
+    .van-icon-exam{
+      background-position: -25px -25px;
+    }
+    .van-icon-record{
+      background-position: -50px -25px;
+    }
+    .van-icon-my{
+      background-position: -75px -25px;
+    }
+  }
+  .van-tabbar-item__icon{
+    margin-bottom: 2px;
+  }
+  .van-icon{
+    width: 25px;
+    height: 25px;
+    background-image: url("../images/tabbar_icon.png");
+    background-repeat: no-repeat;
+    background-size: 150px 50px;
+  }
+  .van-icon-course{
+    background-position: 0 0;
+  }
+  .van-icon-exam{
+    background-position: -25px 0;
+  }
+  .van-icon-record{
+    background-position: -50px 0;
+  }
+  .van-icon-my{
+    background-position: -75px 0;
+  }
+}
+
+.index-banner{
+  padding: 0 20px 15px;
+  background-color: @grayF0;
+  .swipe-image{
+    padding-top: 36%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border-radius: 2px;
+    display: block;
+  }
+}
+
+.index-section-header{
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  letter-spacing: 1px;
+  .header-title{
+    background: url("../images/leaf.png") right bottom no-repeat;
+    background-size: 45px;
+    font-size: 16px;
+    font-weight: bold;
+    color: @gray33;
+    display: inline-block;
+    padding-right: 35px;
+    line-height: 18px;
+  }
+  .header-link{
+    color: @grayB2;
+    font-size: 11px;
+  }
+  .icon-more{
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    background: url("../images/f_icon_more.png") no-repeat;
+    background-size: 100%;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+}
+
+//page
+.index-course{
+  padding: 5px 20px 0;
+}
+.index-teacher{
+  padding: 10px 20px 20px;
+}
+.course-search-page{
+  padding: 0 20px 10px;
+}
+.teacher-list-page{
+  padding: 15px 20px;
+}
+.teacher-details-page{
+  padding: 3px 20px 10px;
+}
+
+
+
+.index-show-more{
+  margin-top: 16px;
+  .van-button{
+    height: 50px;
+    line-height: 48px;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+}
+
+//list
+.wow-course-list{
+  &.list-bg{
+    .list-item{
+      margin: 12px 0;
+    }
+    .list-item:nth-child(even){
+      background-color: @grayF0;
+    }
+  }
+  .list-item{
+    padding: 12px 25px;
+  }
+  .item-content{
+    display: flex;
+    position: relative;
+    color: @gray;
+  }
+  .item-thumb{
+    width: 160px;
+    height: 90px;
+    margin-right: 10px;
+    border-radius: 2px;
+    overflow: hidden;
+    &:after{
+      border-color: @grayF0;
+      border-radius: 2px;
+    }
+    img{
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+  .item-tag{
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
+  .tag-mark{
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+    background-color: @green;
+    color: @white;
+    font-size: 11px;
+    padding: 0 8px 0 2px;
+    border-radius: 0 10px 10px 0;
+  }
+  .item-info{
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+  .info-profile{
+    width: 100%;
+    max-height: 60px;
+    height: auto;
+    line-height: 20px;
+    position: relative;
+    text-align: justify;
+  }
+}
+
+.wow-teacher-list{
+  .list-item{
+    padding: 10px 0;
+  }
+  .item-content{
+    display: flex;
+    position: relative;
+    color: @gray;
+  }
+  .item-thumb{
+    width: 75px;
+    height: 75px;
+    margin-right: 15px;
+    border-radius: 50%;
+    &:after{
+      border-color: @grayF0;
+      border-radius: 50%;
+    }
+    img{
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 50%;
+    }
+  }
+  .item-info{
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    text-align: justify;
+    padding-top: 8px;
+  }
+  .info-name{
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 5px;
+    &:before{
+      width: 3px;
+      height: 14px;
+      display: inline-block;
+      background-color: @blue;
+      vertical-align: -2px;
+      margin-right: 10px;
+      content: "";
+    }
+  }
+  .info-des{
+    width: 100%;
+    max-height: 34px;
+    height: auto;
+    line-height: 17px;
+    position: relative;
+    color: @gray80;
+    font-size: 11px;
+    text-align: justify;
+  }
+}
+
+//老师列表
+.wow-teacher-list2{
+  .list-item{
+
+  }
+  .item-content{
+    width: 100%;
+    display: block;
+  }
+  .item-thumb{
+    padding-top: 136%;
+    position: relative;
+    img{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 2px;
+    }
+  }
+  .van-hairline--surround{
+    &:after{
+      border-color: @grayF0;
+      border-radius: 2px;
+    }
+  }
+  .item-info{
+    padding: 12px 0 15px;
+  }
+  .info-name{
+    color: @gray;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 3px;
+    height: 20px;
+  }
+  .info-details{
+    height: 36px;
+    font-size: 11px;
+    color: #4c4c4c;
+    line-height: 18px;
+  }
+}
+.teacher-details-panel{
+  &:after{
+    border-color: @grayF0;
+  }
+  .panel-bg{
+    padding-top: 24%;
+    background-image: url("../images/c_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+  .panel{
+    display: flex;
+    padding: 0 45px;
+    box-sizing: border-box;
+    margin-top: -37.5px;
+  }
+  .panel-thumb{
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .panel-info{
+    flex: 1;
+    padding: 10px 0 12px;
+    letter-spacing: 1px;
+  }
+  .info-name{
+    font-size: 16px;
+    font-weight: bold;
+    color: @white;
+    margin-bottom: 25px;
+    height: 22px;
+    line-height: 22px;
+  }
+  .d-title{
+    font-size: 13px;
+    color: @gray33;
+    margin-bottom: 8px;
+    height: 18px;
+  }
+  .d-content{
+    font-size: 11px;
+    color: @gray80;
+    line-height: 17px;
+    text-align: justify;
+    margin-bottom: 5px;
+    min-height: 51px;
+  }
+  .d-link-bar{
+    text-align: right;
+  }
+  .d-link{
+    color: @blue;
+    font-size: 11px;
+  }
+}
+
+//my
+.my-base-info{
+  min-height: 200px;
+  background-color: @grayF0;
+  padding: 30px 48px 15px;
+  .info-field{
+    display: flex;
+    &.error{
+      .fill-control{
+        border-color: @blue;
+      }
+    }
+  }
+  .info-label{
+    width: 44px;
+    line-height: 44px;
+  }
+  .info-body{
+    flex: 1;
+  }
+  .info-fill{
+    line-height: 44px;
+    min-height: 44px;
+  }
+  .van-radio-group{
+    display: flex;
+    height: 44px;
+  }
+  .van-radio{
+    margin-right: 28px;
+    .van-icon{
+      border: 0;
+      background-color: @white;
+      &:before{
+        display: none;
+      }
+    }
+  }
+  .van-radio__icon--checked{
+    .van-icon{
+      background-color: @blue;
+    }
+  }
+  .fill-control{
+    width: 100%;
+    height: 42px;
+    border: 1px solid transparent;
+    background-color: @white;
+    border-radius: 30px;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
+  .info-error{
+    color: @red;
+    font-size: 11px;
+    height: 18px;
+    line-height: 18px;
+  }
+}
+
+.extra-field{
+  padding-bottom: 14px;
+  .field-title{
+    margin-bottom: 12px;
+  }
+  .van-cell{
+    padding-right: 8px;
+  }
+  .van-field{
+    height: 44px;
+    border: 1px solid @grayF0;
+    border-radius: 40px;
+  }
+  .van-field__control{
+    color: @grayB2;
+    font-size: 13px;
+  }
+  .icon-go{
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    background-image: url("../images/f_icon_go.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+}
+.my-info-op{
+  height: 44px;
+  padding: 0 48px 40px;
+  overflow: hidden;
+  .btn-save{
+    width: 100%;
+    height: 44px;
+    line-height: 42px;
+    letter-spacing: 1px;
+    z-index: 1;
+  }
+  .op-bar{
+    width: 150px;
+    position: relative;
+    display: inline-block;
+    &:after{
+      position: absolute;
+      height: 32px;
+      top: 10px;
+      left: 20px;
+      right: 20px;
+      content: "";
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(102, 126, 195, .5);
+    }
+  }
+}
+.my-extra-info{
+  padding: 25px 48px;
+}
+
+//搜索页面
+.wow-search-page{
+  position: relative;
+  z-index: 9998;
+  background-color: @grayF0;
+  width: 100%;
+  height: 100%;
+  padding: 80px 20px 20px;
+  box-sizing: border-box;
+}
+.search-hot-box{
+  .title{
+    color: @gray33;
+    margin-bottom: 15px;
+  }
+}
+.search-hot-list{
+  font-size: 0;
+  li{
+    display: inline-block;
+    padding: 3px 0;
+    margin-right: 6px;
+  }
+  a{
+    display: inline-block;
+    background-color: @white;
+    color: @gray33;
+    font-size: 12px;
+    padding: 7px 10px;
+  }
+}
+.search-sort{
+  padding: 20px 14%;
+  position: relative;
+  &:after{
+    position: absolute;
+    height: 32px;
+    top: 20px;
+    left: 18%;
+    right: 18%;
+    content: "";
+    border-radius: 20px;
+    box-shadow: 0 12px 25px rgba(102, 126, 195, .4);
+  }
+  .btn-sort{
+    font-size: 12px;
+    background-color: @white;
+    letter-spacing: 1px;
+    z-index: 10;
+    height: 40px;
+    line-height: 38px;
+  }
+}
+
+//课程详情
+.wow-video-wrap{
+  padding-top: 56%;
+  position: relative;
+  background-color: @black;
+  .video-js{
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    &.vjs-playing{
+      &:after{
+        display: none;
+      }
+    }
+    &:after{
+      width: 100%;
+      height: 100%;
+      content: "";
+      background: rgba(0, 0, 0, .7);
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 100;
+    }
+  }
+  .vjs-paused{
+    .vjs-big-play-button{
+      display: block;
+    }
+  }
+  .vjs-poster{
+    background-size: cover;
+  }
+  .vjs-big-play-button{
+    width: 60px;
+    height: 60px;
+    line-height: 56px;
+    top: 50%;
+    left: 50%;
+    margin-top: -30px;
+    margin-left: -30px;
+    border-radius: 50%;
+    border-width: 2px;
+    font-size: 30px;
+    background: @blue;
+    z-index: 200;
+  }
+}
+.cd-section-header{
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  letter-spacing: 1px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  .header-title{
+    background: url("../images/leaf.png") right bottom no-repeat;
+    background-size: 45px;
+    font-size: 16px;
+    font-weight: bold;
+    color: @gray33;
+    display: inline-block;
+    padding-right: 35px;
+    line-height: 18px;
+  }
+}
+.cd-teacher-list{
+  background-color: #f5f5f5;
+  margin: 12px 0;
+  .list-item{
+    width: 80%;
+    padding: 24px 0 24px 20px;
+    box-sizing: border-box;
+  }
+  .item-content{
+    display: flex;
+  }
+  .item-thumb{
+    width: 75px;
+    height: 75px;
+    background-color: @white;
+    border-radius: 50%;
+    margin-right: 16px;
+    &:after{
+      border-color: @grayF0;
+      border-radius: 50%;
+    }
+    img{
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+  .item-info{
+    flex: 1;
+    padding-top: 8px;
+    text-align: justify;
+  }
+  .info-name{
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 5px;
+    color: @gray;
+    &:before{
+      width: 3px;
+      height: 14px;
+      display: inline-block;
+      background-color: #667ec3;
+      vertical-align: -2px;
+      margin-right: 10px;
+      content: "";
+    }
+  }
+  .info-details{
+    width: 100%;
+    max-height: 34px;
+    height: auto;
+    line-height: 17px;
+    position: relative;
+    color: grey;
+    font-size: 11px;
+    text-align: justify;
+  }
+}
+.cd-details-bar{
+  padding: 26px 20px 10px;
+  .cd-download-button{
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    color: @gray33;
+    display: inline-block;
+    &:before{
+      width: 22px;
+      height: 22px;
+      display: inline-block;
+      vertical-align: middle;
+      content: "";
+      background-image: url("../images/icon_download.png");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      margin-right: 5px;
+    }
+  }
+}
+.cd-details-content{
+  padding: 20px;
+  img{
+    max-width: 100%;
+    display: block;
+  }
+}
+.cd-video-nam{
+  padding: 10px 30px 10px 20px;
+  font-size: 16px;
+  line-height: 20px;
+  &:after{
+    border-color: @grayF0;
+  }
+}
+.course-chapter{
+  letter-spacing: 1px;
+  padding: 0 20px;
+  margin-bottom: 10px;
+  &:after{
+    border-width: 0;
+  }
+  .chapter-item{
+    &:after{
+      border-width: 0;
+    }
+  }
+  .van-cell{
+    padding: 10px 0;
+    &:after{
+      border-width: 0;
+    }
+  }
+  .van-cell__title{
+    overflow: hidden;
+  }
+  .van-collapse-item__content{
+    padding: 0;
+  }
+  .chapter-title{
+    font-size: 12px;
+    color: @gray33;
+    display: flex;
+    .title-name{
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .title-text{
+      flex: 1;
+      height: 24px;
+      line-height: 24px;
+      overflow: hidden;
+    }
+  }
+  .collapse-icon{
+    width: 12px;
+    height: 24px;
+    display: inline-block;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-left: 20px;
+    &:before{
+      width: 12px;
+      height: 12px;
+      content: "";
+      display: inline-block;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-image: url("../images/d_icon_close.png");
+      transition: transform .3s;
+    }
+  }
+  .van-collapse-item__title--expanded{
+    .collapse-icon:before{
+      transform: rotate(90deg);
+      background-image: url("../images/d_icon_open.png");
+    }
+  }
+  .chapter-list{
+
+  }
+  .list-item{
+    margin-bottom: 8px;
+    &.active{
+      .item-link{
+        color: @blue;
+        &:before{
+          background-image: url("../images/d_icon_video.png");
+        }
+      }
+    }
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+  .item-link{
+    height: 44px;
+    display: flex;
+    color: @gray80;
+    background-color: #f5f5f5;
+    align-items: center;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-size: 12px;
+    &:before{
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      content: "";
+      background-image: url("../images/d_icon_video2.png");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      margin-right: 10px;
+    }
+  }
+  .link-text{
+    flex: 1;
+  }
+  .link-time{
+    width: 60px;
+    text-align: right;
+    margin-left: 10px;
+    color: @grayB2;
+  }
+}
+
+
+
+
+
+.wow-button{
+  position: relative;
+  &.w-free{
+    max-width: 150px;
+  }
+  .van-button{
+    height: 40px;
+    line-height: 38px;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  &:after{
+    position: absolute;
+    height: 75%;
+    top: 10%;
+    left: 8%;
+    right: 8%;
+    content: "";
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(102,126,195,.5);
+  }
+}
+//筛选页面
+.wow-popup{
+  width: 85%;
+  height: 100%;
+  padding: 80px 0 50px;
+  box-sizing: border-box;
+  .popup-panel{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+    padding-bottom: 44px;
+  }
+  .panel-sort{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+  .sort-card{
+    padding: 24px 20px 15px;
+    .van-button{
+      margin-right: 8px;
+      margin-bottom: 12px;
+      border-color: @grayB2;
+      padding: 0 16px;
+      height: 34px;
+      line-height: 32px;
+      max-width: 100%;
+      &.active{
+        border-color: @blue;
+        color: @blue;
+      }
+    }
+    .van-button__text{
+      width: 100%;
+      display: block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+  .sort-title{
+    font-size: 14px;
+    font-weight: bold;
+    color: @gray33;
+    margin-bottom: 14px;
+  }
+  .sort-bar{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    .van-button{
+      border-radius: 0;
+    }
+    .van-button--default{
+      color: @gray80;
+    }
+  }
+}
+.sticky-divide{
+  height: 15px;
+}
+.wow-sticky{
+  .van-sticky{
+    background-color: @white;
+    padding: 10px 20px;
+    &.van-sticky--fixed{
+      box-shadow: 0 1px 5px rgba(0, 0, 0, .2);
+    }
+  }
+  .sticky-flex{
+    display: flex;
+    justify-content: space-between;
+  }
+  .flex-l{
+    max-width: 70%;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .flex-r{
+    display: inline-block;
+  }
+  .icon-sort{
+    color: @grayB2;
+    display: inline-block;
+    &:before{
+      width: 15px;
+      height: 15px;
+      content: "";
+      display: inline-block;
+      vertical-align: -3px;
+      background-image: url("../images/f_icon_sort.png");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      margin-right: 5px;
+    }
+  }
+}
+
+//-----------van
+.van-picker__cancel, .van-picker__confirm{
+  color: @blue;
+  font-size: 16px;
+}
+.van-overlay{
+  background: rgba(0, 0, 0, .5);
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>woskill</title>
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/lib/vant/index.css">
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/css/main.css">
+</head>
+<body>
+<div class="views" id="indexPage" v-cloak>
+  <!-- 顶部导航 -->
+  <div class="wow-navbar">
+    <a href="./index.html" class="logo" v-show="!showSearch"><img src="../dist/images/logo.png" alt=""></a>
+    <div class="navbar-search-btn" @click="handleSearchBtnClick" v-show="!showSearch">搜索课程关键词</div>
+    <div class="navbar-search" v-show="showSearch">
+      <!--show-action-->
+      <form action="/">
+        <van-search
+            ref="search"
+            v-model="searchValue"
+            placeholder="请输入搜索课程"
+            show-action
+            @search="handleSearch"
+            @cancel="handleSearchCancel"
+        ></van-search>
+      </form>
+    </div>
+  </div>
+  <!-- 搜索页面 -->
+  <div class="wow-search-page" v-show="showSearch">
+    <div class="search-hot-box">
+      <div class="title">热门搜索</div>
+      <ul class="search-hot-list">
+        <li v-for="(item, index) in hostCourseList"
+            :key="index">
+          <a :href="item.url" v-text="item.courseName"></a>
+        </li>
+      </ul>
+    </div>
+    <div class="search-sort">
+      <a href="./course_sort.html"
+         class="van-button van-button--info van-button--round van-button--plain van-button--block btn-sort"
+      >查看课程分类</a>
+    </div>
+  </div>
+  <!-- 正文内容 -->
+  <div class="page">
+    <div class="page-content">
+      <!-- 轮播图 -->
+      <div class="index-banner" v-if="bannerImage.length">
+        <van-swipe :show-indicators="false">
+          <van-swipe-item
+              v-for="(image, index) in bannerImage"
+              :key="index">
+            <a class="swipe-image"
+               :href="image.url ? image.url : 'javascript:;'"
+               :style="'background-image: url('+ image.imgUrl +')'"></a>
+          </van-swipe-item>
+        </van-swipe>
+      </div>
+      <!-- 热门课程 -->
+      <section class="index-course" v-if="courseList.length">
+        <div class="index-section-header mb-20">
+          <span class="header-title">热门课程推荐</span>
+          <a href="./course_sort.html" class="header-link">查看更多<i class="icon-more"></i></a>
+        </div>
+        <div class="wow-course-list">
+          <div class="list-item"
+              v-for="(item, index) in courseList"
+              :key="index">
+            <a :href="item.url" class="item-content">
+              <div class="item-thumb van-hairline--surround">
+                <img :src="item.imgUrl" alt="">
+              </div>
+              <div class="item-tag" v-if="item.hot">
+                <span class="tag-mark">热门</span>
+              </div>
+              <div class="item-info">
+                <div class="info-profile" v-text="item.details"></div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="index-show-more">
+          <a href="./course_sort.html" class="van-button van-button--info van-button--block van-button--plain">查看全部课程</a>
+        </div>
+      </section>
+      <!-- 名师专栏 -->
+      <section class="index-teacher" v-if="teacherList.length">
+        <div class="index-section-header mb-20">
+          <span class="header-title">名师专栏</span>
+          <a href="./teacher_list.html" class="header-link">查看更多<i class="icon-more"></i></a>
+        </div>
+        <div class="wow-teacher-list">
+          <div class="list-item"
+              v-for="(item, index) in teacherList"
+              :key="index">
+            <a :href="item.url" class="item-content">
+              <div class="item-thumb van-hairline--surround">
+                <img :src="item.imgUrl" alt="">
+              </div>
+              <div class="item-info">
+                <div class="info-name van-ellipsis" v-text="item.name"></div>
+                <div class="info-des van-multi-ellipsis--l2" v-text="item.details"></div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- 底部导航 -->
+  <van-tabbar v-model="tabbarActive" class="wow-tabbar">
+    <van-tabbar-item icon="course" url="./index.html">课程</van-tabbar-item>
+    <van-tabbar-item icon="exam" url="./course_sort.html">考试</van-tabbar-item>
+    <van-tabbar-item icon="record" url="./my.html">学习记录</van-tabbar-item>
+    <van-tabbar-item icon="my" url="./my.html">我的</van-tabbar-item>
+  </van-tabbar>
+</div>
+
+<!-- Path to Library JS-->
+<script src="../dist/lib/zepto.min.js"></script>
+<script src="../dist/lib/vue.min.js"></script>
+<script src="../dist/lib/vant/vant.min.js"></script>
+<!-- Path to Library JS-->
+<script src="../dist/js/common.js"></script>
+<script src="../dist/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "status": 1,
+  "msg": "成功",
+  "data": [
+    {
+      "url": "./course_search_list.html?searchKey=java",
+      "courseName": "java"
+    },{
+      "url": "./course_search_list.html?searchKey=java",
+      "courseName": "java"
+    },{
+      "url": "./course_search_list.html?searchKey=java",
+      "courseName": "java"
+    },{
+      "url": "./course_search_list.html?searchKey=java",
+      "courseName": "java"
+    },{
+      "url": "./course_search_list.html?searchKey=java",
+      "courseName": "java"
+    },{
+      "url": "./course_search_list.html?searchKey=java",
+      "courseName": "java"
+    },{
+      "url": "./course_search_list.html?searchKey=java",
+      "courseName": "java"
+    },{
+      "url": "./course_search_list.html?searchKey=java",
+      "courseName": "java"
+    },{
+      "url": "./course_search_list.html?searchKey=java",
+      "courseName": "java"
+    },{
+      "url": "./course_search_list.html?searchKey=java",
+      "courseName": "java"
+    }
+  ]
+}

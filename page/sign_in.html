@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>woskill</title>
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/lib/vant/index.css">
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/css/main.css">
+</head>
+<body>
+<div class="sign-page" id="signInPage" v-cloak>
+  <div class="sign-top">
+    <h3 class="logo" style="background-image: url('../dist/images/sign_logo.png')"></h3>
+    <div class="st-text">登陆</div>
+  </div>
+  <div class="sign-form">
+    <van-cell-group>
+      <van-cell class="sign-form-cell mb-25">
+        <van-field v-model="form.userName" v-model.trim="form.userName" placeholder="请输入邮箱/手机号"></van-field>
+      </van-cell>
+      <van-cell class="sign-form-cell">
+        <van-field
+            v-model="form.password"
+            v-model.trim="form.password"
+            :type="showFlag ? 'text' : 'password'"
+            placeholder="请输入密码">
+            <span slot="button"
+                  class="form-icon icon-eyes"
+                  :class="showFlag ? 'icon-eyes-open' : 'icon-eyes-close'"
+                  @click="handleShowPwd"
+            ></span>
+        </van-field>
+      </van-cell>
+      <div class="sign-form-op align-right">
+        <a href="./find_pwd.html" class="sign-form-link">忘记密码？</a>
+      </div>
+      <div class="sign-from-back align-center"></div>
+      <div class="sign-from-sub">
+        <a href="javascript:;"
+           class="van-button van-button--info van-button--round van-button--block"
+           @click="handleSignIn"
+        >登陆</a>
+      </div>
+    </van-cell-group>
+  </div>
+  <br>
+</div>
+<!-- Path to Library JS-->
+<script src="../dist/lib/zepto.min.js"></script>
+<script src="../dist/lib/vue.min.js"></script>
+<script src="../dist/lib/vant/vant.min.js"></script>
+<!-- Path to Library JS-->
+<script src="../dist/js/sign.js"></script>
+</body>
+</html>

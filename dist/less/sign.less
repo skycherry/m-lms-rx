@@ -1,0 +1,158 @@
+@import "theme";
+
+.sign-page{
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/sign_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  padding-bottom: 30px;
+}
+.sign-top{
+  text-align: center;
+  padding-top: 15%;
+  padding-bottom: 8%;
+  h3{
+    width: 160px;
+    height: 90px;
+    display: inline-block;
+    background-size: 100%;
+  }
+  .st-text{
+    font-size: 18px;
+    color: @gray;
+    margin: 10% 0;
+    letter-spacing: 2px;
+  }
+  .short{
+    color: @blue;
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+}
+
+.sign-form {
+  padding: 0 42px;
+  .van-cell-group{
+    background: none;
+    &:after{
+      border: 0;
+    }
+  }
+  .extra-field .van-field__control{
+    color: #323233;
+  }
+  .sign-form-cell{
+    padding: 0 0 5px;
+    background: none;
+    .van-cell{
+      padding: 0;
+      background: none;
+    }
+    &:after{
+      border-color: @gray33!important;
+      left: 0!important;
+      right: 0!important;
+      position: absolute;
+      box-sizing: border-box;
+      content: ' ';
+      pointer-events: none;
+      bottom: 0;
+      border-bottom: 1px solid #ebedf0;
+      -webkit-transform: scaleY(.5);
+      transform: scaleY(.5);
+    }
+    .van-field__body{
+      align-items: flex-end;
+      min-height: 30px;
+    }
+  }
+  .van-field__control{
+    &::-webkit-input-placeholder {
+      color: @gray80;
+    }
+    &::-moz-placeholder {
+      color: @gray80;
+    }
+  }
+  .sign-form-op{
+    padding: 10px 0;
+    height: 22px;
+    line-height: 22px;
+  }
+  .sign-form-link{
+    color: @gray33;
+    font-size: 14px;
+    display: inline-block;
+  }
+  .form-icon{
+    width: 30px;
+    height: 15px;
+    display: inline-block;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .icon-eyes-close{
+    background-image: url("../images/icon_eyes_close.png");
+  }
+  .icon-eyes-open{
+    background-image: url("../images/icon_eyes_open.png");
+  }
+  .icon-back{
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-image: url("../images/f_icon_back.png");
+    margin-right: 5px;
+  }
+  .image-code{
+    width: 90px;
+    height: 30px;
+    display: inline-block;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    vertical-align: -2px;
+  }
+  .digit-code{
+    display: inline-block;
+    vertical-align: middle;
+    &.disabled{
+      opacity: .4;
+    }
+  }
+  .sign-from-back{
+    min-height: 24px;
+    line-height: 24px;
+    padding: 25% 0 10%;
+  }
+  .sign-from-go{
+    color: @grayB2;
+    font-size: 13px;
+    display: inline-block;
+  }
+  .van-button{
+    height: 48px;
+    line-height: 46px;
+    letter-spacing: 2px;
+    z-index: 10;
+  }
+  .sign-from-sub{
+    position: relative;
+    &:after{
+      position: absolute;
+      height: 32px;
+      top: 10px;
+      left: 12%;
+      right: 12%;
+      content: "";
+      border-radius: 20px;
+      box-shadow: 0 15px 18px rgba(102, 126, 195, .5);
+    }
+  }
+}
+

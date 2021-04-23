@@ -1,0 +1,73 @@
+{
+  "status": 1,
+  "msg": "成功",
+  "data": {
+    "chapterList": [
+      {
+        "chapterId": 1,
+        "chapterName": "金融风控大数据解决方案1",
+        "unitList": [
+          {
+            "unitId": 101,
+            "unitName": "开辟鸿蒙，谁做系统，聊聊华为内核开辟鸿蒙，谁做系统，聊聊华为内核... ",
+            "unitTime": "30min",
+            "unitCoverImg": "../dist/images/c_pic.jpg",
+            "unitVideoUrl": "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8",
+            "unitExternal": "external.html",
+            "unitPDF": "demo.pdf",
+            "unitDescription": "<img src=\"http://szimg.mukewang.com/59b8a4b40001c0cf07500467.jpg\" alt=\"\">"
+          },
+          {
+            "unitId": 102,
+            "unitName": "但是但是范德萨发司法鉴定但是但是范德萨发司法鉴定",
+            "unitTime": "56min",
+            "unitCoverImg": "../dist/images/c_pic.jpg",
+            "unitVideoUrl": "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8",
+            "unitExternal": "external.html",
+            "unitPDF": "demo.pdf",
+            "unitDescription": "<img src=\"http://szimg.mukewang.com/59b8a4bd0001d10507500548.jpg\" alt=\"\">"
+          }
+        ]
+      },
+      {
+        "chapterId": 2,
+        "chapterName": "金融风控大数据解决方案2",
+        "unitList": [
+          {
+            "unitId": 201,
+            "unitName": "开辟鸿蒙，谁做系统，聊聊华为内核开辟鸿蒙，谁做系统，聊聊华为内核... ",
+            "unitTime": "87min",
+            "unitCoverImg": "../dist/images/c_pic.jpg",
+            "unitVideoUrl": "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8",
+            "unitExternal": "external.html",
+            "unitPDF": "demo.pdf",
+            "unitDescription": "<img src=\"http://szimg.mukewang.com/59b8a51b0001f57407500635.jpg\" alt=\"\">"
+          }
+        ]
+      }
+    ],
+    "teacherList": [
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic2.jpg",
+        "name": "张章1",
+        "details": "张章是睿仕管理大中华区合伙..."
+      },
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章2",
+        "details": "张章是睿仕管理大中华区合伙..."
+      },
+      {
+        "id": 1,
+        "url": "./teacher_details.html",
+        "imgUrl": "../dist/images/c_pic3.jpg",
+        "name": "张章2",
+        "details": "张章是睿仕管理大中华区合伙..."
+      }
+    ]
+  }
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>woskill</title>
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/lib/vant/index.css">
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/css/main.css">
+</head>
+<body>
+<div class="views" id="teacherListPage" v-cloak>
+  <!-- 顶部导航 -->
+  <div class="wow-navbar">
+    <a href="javascript:history.back(-1)" class="nav-back" >
+      <i class="icon-back"></i>
+    </a>
+    <div class="navbar-search">
+      <!--show-action-->
+      <form action="/">
+        <van-search
+            v-model="searchValue"
+            placeholder="搜索老师关键词"
+            @search="handleTeacherSearch"
+        ></van-search>
+      </form>
+    </div>
+  </div>
+  <!-- 正文内容 -->
+  <div class="page">
+    <div class="page-content">
+      <!-- 老师列表 -->
+      <section class="teacher-list-page">
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list
+              v-model="loading"
+              :finished="finished"
+              finished-text="没有更多了"
+              @load="onLoad">
+            <van-row class="wow-teacher-list2" gutter="16">
+              <van-col
+                  span="8"
+                  class="list-item"
+                  v-for="(item, index) in teacherList"
+                  :key="index">
+                <a :href="item.url" class="item-content">
+                  <div class="item-thumb van-hairline--surround">
+                    <img :src="item.imgUrl" alt="">
+                  </div>
+                  <div class="item-info">
+                    <div class="info-name van-ellipsis" v-text="item.name"></div>
+                    <div class="info-details van-multi-ellipsis--l2" v-text="item.details"></div>
+                  </div>
+                </a>
+              </van-col>
+            </van-row>
+          </van-list>
+        </van-pull-refresh>
+      </section>
+    </div>
+  </div>
+  <!-- 底部导航 -->
+  <van-tabbar v-model="tabbarActive" class="wow-tabbar">
+    <van-tabbar-item icon="index" url="./index.html">首页</van-tabbar-item>
+    <van-tabbar-item icon="sort" url="./course_sort.html">分类</van-tabbar-item>
+    <van-tabbar-item icon="my" url="./my.html">我的</van-tabbar-item>
+  </van-tabbar>
+</div>
+
+<!-- Path to Library JS-->
+<script src="../dist/lib/zepto.min.js"></script>
+<script src="../dist/lib/vue.min.js"></script>
+<script src="../dist/lib/vant/vant.min.js"></script>
+<!-- Path to Library JS-->
+<script src="../dist/js/common.js"></script>
+<script src="../dist/js/teacher_list.js"></script>
+</body>
+</html>

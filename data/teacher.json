@@ -1,0 +1,27 @@
+{
+  "status": 1,
+  "msg": "成功",
+  "data": [
+    {
+      "id": 1,
+      "url": "./teacher_details.html",
+      "imgUrl": "../dist/images/c_pic2.jpg",
+      "name": "张章",
+      "details": "张章是睿仕管理大中华区合伙人组织发展和领导力资深顾问相..."
+    },
+    {
+      "id": 1,
+      "url": "./teacher_details.html",
+      "imgUrl": "../dist/images/c_pic2.jpg",
+      "name": "张章",
+      "details": "张章是睿仕管理大中华区合伙人组织发展和领导力资深顾问相..."
+    },
+    {
+      "id": 1,
+      "url": "./teacher_details.html",
+      "imgUrl": "../dist/images/c_pic2.jpg",
+      "name": "张章",
+      "details": "张章是睿仕管理大中华区合伙人组织发展和领导力资深顾问相..."
+    }
+  ]
+}
