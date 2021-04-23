@@ -10,73 +10,30 @@
     "list": [
       {
         "id": 1,
+        "complete": 0,
         "url": "./course_details.html",
         "imgUrl": "../dist/images/c_pic.jpg",
-        "details": "大数据前沿技术及发展趋势",
-        "hot": 1
+        "details": "30课时外教真人1对1在线视频课程",
+        "dueDate": "2021-04-21",
+        "type": 0
       },
       {
         "id": 1,
+        "complete": 1,
         "url": "./course_details.html",
         "imgUrl": "../dist/images/c_pic.jpg",
-        "details": "大数据前沿技术及发展趋势",
-        "hot": 1
+        "details": "30课时外教真人1对1在线视频课程",
+        "dueDate": "2021-04-20",
+        "type": 1
       },
       {
         "id": 1,
+        "complete": 1,
         "url": "./course_details.html",
         "imgUrl": "../dist/images/c_pic.jpg",
-        "details": "大数据前沿技术及发展趋势",
-        "hot": 1
-      },
-      {
-        "id": 1,
-        "url": "./course_details.html",
-        "imgUrl": "../dist/images/c_pic.jpg",
-        "details": "大数据前沿技术及发展趋势",
-        "hot": 1
-      },
-      {
-        "id": 1,
-        "url": "./course_details.html",
-        "imgUrl": "../dist/images/c_pic.jpg",
-        "details": "大数据前沿技术及发展趋势",
-        "hot": 1
-      },
-      {
-        "id": 1,
-        "url": "./course_details.html",
-        "imgUrl": "../dist/images/c_pic.jpg",
-        "details": "大数据前沿技术及发展趋势",
-        "hot": 1
-      },
-      {
-        "id": 1,
-        "url": "./course_details.html",
-        "imgUrl": "../dist/images/c_pic.jpg",
-        "details": "大数据前沿技术及发展趋势",
-        "hot": 1
-      },
-      {
-        "id": 1,
-        "url": "./course_details.html",
-        "imgUrl": "../dist/images/c_pic.jpg",
-        "details": "大数据前沿技术及发展趋势",
-        "hot": 1
-      },
-      {
-        "id": 1,
-        "url": "./course_details.html",
-        "imgUrl": "../dist/images/c_pic.jpg",
-        "details": "大数据前沿技术及发展趋势",
-        "hot": 1
-      },
-      {
-        "id": 1,
-        "url": "./course_details.html",
-        "imgUrl": "../dist/images/c_pic.jpg",
-        "details": "大数据前沿技术及发展趋势",
-        "hot": 1
+        "details": "30课时外教真人1对1在线视频课程",
+        "dueDate": "2021-04-20",
+        "type": 2
       }
     ]
   }

@@ -64,18 +64,27 @@
                       :finished="finished"
                       finished-text="没有更多了"
                       @load="onLoad">
-                <div class="list-item"
+                <div class="list-item van-hairline--bottom"
                      v-for="(item, index) in courseList"
                      :key="index">
                   <a :href="item.url" class="item-content">
                     <div class="item-thumb van-hairline--surround">
                       <img :src="item.imgUrl" alt="">
                     </div>
-                    <div class="item-tag" v-if="item.hot">
-                      <span class="tag-mark">热门</span>
-                    </div>
                     <div class="item-info">
-                      <div class="info-profile" v-text="item.details"></div>
+                      <div class="info-title van-multi-ellipsis--l2">
+                        <van-tag type="primary" v-if="item.complete == 0">已完成</van-tag>
+                        <van-tag type="warning" v-else>未完成</van-tag>
+
+                        <span v-text="item.details">item.details</span>
+                      </div>
+                      <div class="info-date">
+                        <span class="date">到期时间：<span v-text="item.dueDate"></span></span>
+
+                        <span class="type" v-if="item.type == 0">过期</span>
+                        <span class="type blue" v-else-if="item.type == 1">选修</span>
+                        <span class="type orange" v-else="item.type == 2">必修</span>
+                      </div>
                     </div>
                   </a>
                 </div>
