@@ -1119,6 +1119,29 @@ html, body{
   }
 }
 
+// 我的课程
+.course-search-tabs{
+  .van-sticky--fixed{
+    top: 80px;
+  }
+  .van-tabs__line{
+    display: none;
+  }
+  .van-tab{
+    font-size: 15px;
+    color: @gray;
+  }
+  .van-tab--active{
+    color: #667ce3;
+  }
+  .van-hairline--top-bottom{
+    &:after{
+      border-width: 0 0 1px 0;
+      border-color: @grayE5;
+    }
+  }
+}
+
 //-----------van
 .van-picker__cancel, .van-picker__confirm{
   color: @blue;
