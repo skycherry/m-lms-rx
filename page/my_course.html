@@ -52,10 +52,9 @@
   <!-- 正文内容 -->
   <div class="page">
     <div class="page-content">
-      <!-- 我的课程 -->
-      <van-tabs class="course-search-tabs" v-model="currentActive" sticky>
-        <van-tab title="全部课程">
-          <!-- 热门课程 -->
+      <!-- 课程 -->
+      <van-tabs class="course-search-tabs" :before-change="beforeChange" sticky>
+        <van-tab v-for="index in tabNames.length" :title="tabNames[index - 1]">
           <section class="course-search-page">
             <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
               <van-list
@@ -92,8 +91,6 @@
             </van-pull-refresh>
           </section>
         </van-tab>
-        <van-tab title="选修">内容 2</van-tab>
-        <van-tab title="必修">内容 3</van-tab>
       </van-tabs>
     </div>
   </div>
@@ -120,8 +117,9 @@
         return {
           searchValue: '',
           tabbarActive: 0,
-          currentActive: 0,
-          courseList: [],
+          tabNames: ['全部课程', '选修', '必修'],
+          courseType: 0,
+          courseList: [], //课程
           loading: false,
           finished: false,
           refreshing: false,
@@ -133,6 +131,12 @@
         };
       },
       methods: {
+        beforeChange(index) {
+          this.courseType = index;
+          this.refreshing = true;
+          this.onRefresh();
+          return true;
+        },
         onLoad: function () {
           var _this = this;
           //刷新执行
@@ -147,7 +151,7 @@
             type: 'post',
             dataType: 'json',
             data: {
-              key: _this.searchKey,
+              courseType: _this.courseType,
               pageNo: _this.pageInfo.pageNo
             },
             success: function (response) {
