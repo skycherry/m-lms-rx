@@ -13,11 +13,11 @@
   <link rel="stylesheet" href="../dist/css/main.css">
 </head>
 <body>
-<div class="views" id="myCoursePage" v-cloak>
+<div class="views" id="courseSearchPage" v-cloak>
   <!-- 顶部导航 -->
   <div class="wow-navbar">
     <a href="./index.html" class="logo" v-show="!showSearch"><img src="../dist/images/logo.png" alt=""></a>
-    <div class="navbar-search-btn" @click="handleSearchBtnClick" v-show="!showSearch">搜索课程关键词</div>
+    <div class="navbar-search-btn" @click="handleSearchBtnClick" v-show="!showSearch" v-text="searchKey"></div>
     <div class="navbar-search" v-show="showSearch">
       <!--show-action-->
       <form action="/">
@@ -52,48 +52,44 @@
   <!-- 正文内容 -->
   <div class="page">
     <div class="page-content">
-      <!-- 课程 -->
-      <van-tabs class="course-search-tabs" :before-change="beforeChange" sticky>
-        <van-tab v-for="index in tabNames.length" :title="tabNames[index - 1]">
-          <section class="course-search-page">
-            <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-              <van-list
-                      class="wow-course-list"
-                      v-model="loading"
-                      :finished="finished"
-                      :finished-text="courseList.length ? '没有更多了' : '暂无课程信息'"
-                      @load="onLoad">
-                <div class="list-item van-hairline--bottom"
-                     v-for="(item, index) in courseList"
-                     :key="index">
-                  <a :href="item.url" class="item-content">
-                    <div class="item-thumb van-hairline--surround">
-                      <img :src="item.imgUrl" alt="">
-                    </div>
-                    <div class="item-info">
-                      <div class="info-title van-multi-ellipsis--l2">
-                        <!-- 完成状态 -->
-                        <van-tag color="#5eb6d7" v-if="item.complete == 0">已完成</van-tag>
-                        <van-tag color="#d7b15e" v-else-if="item.complete == 1">未完成</van-tag>
-                        <van-tag color="#999999" v-else>过期</van-tag>
-
-                        <span v-text="item.details">item.details</span>
-                      </div>
-                      <div class="info-date">
-                        <span class="date">到期时间：<span v-text="item.dueDate"></span></span>
-                        <!-- 课程类型 -->
-                        <span class="type" v-if="item.type == 0">过期</span>
-                        <span class="type blue" v-else-if="item.type == 1">选修</span>
-                        <span class="type orange" v-else>必修</span>
-                      </div>
-                    </div>
-                  </a>
+      <!-- 热门课程 -->
+      <section class="course-search-page">
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list
+                  class="wow-course-list"
+                  v-model="loading"
+                  :finished="finished"
+                  :finished-text="courseList.length ? '没有更多了' : '暂无课程信息'"
+                  @load="onLoad">
+            <div class="list-item van-hairline--bottom"
+                 v-for="(item, index) in courseList"
+                 :key="index">
+              <a :href="item.url" class="item-content">
+                <div class="item-thumb van-hairline--surround">
+                  <img :src="item.imgUrl" alt="">
                 </div>
-              </van-list>
-            </van-pull-refresh>
-          </section>
-        </van-tab>
-      </van-tabs>
+                <div class="item-info">
+                  <div class="info-title van-multi-ellipsis--l2">
+                    <!-- 完成状态 -->
+                    <van-tag color="#5eb6d7" v-if="item.complete == 0">已完成</van-tag>
+                    <van-tag color="#d7b15e" v-else-if="item.complete == 1">未完成</van-tag>
+                    <van-tag color="#999999" v-else>过期</van-tag>
+
+                    <span v-text="item.details">item.details</span>
+                  </div>
+                  <div class="info-date">
+                    <span class="date">到期时间：<span v-text="item.dueDate"></span></span>
+                    <!-- 课程类型 -->
+                    <span class="type" v-if="item.type == 0">过期</span>
+                    <span class="type blue" v-else-if="item.type == 1">选修</span>
+                    <span class="type orange" v-else>必修</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </van-list>
+        </van-pull-refresh>
+      </section>
     </div>
   </div>
   <!-- 底部导航 -->
@@ -103,6 +99,7 @@
     <van-tabbar-item icon="record" url="./my_record.html">学习记录</van-tabbar-item>
   </van-tabbar>
 </div>
+
 <!-- Path to Library JS-->
 <script src="../dist/lib/zepto.min.js"></script>
 <script src="../dist/lib/vue.min.js"></script>
@@ -111,16 +108,15 @@
 <script src="../dist/js/common.js"></script>
 <script>
   $(function() {
-    var myCoursePage = new Vue({
-      el: '#myCoursePage',
+    var courseSearchPage = new Vue({
+      el: '#courseSearchPage',
       mixins: [searchMixin],
       data: function () {
         return {
-          searchValue: '',
-          tabbarActive: 0,
-          tabNames: ['全部课程', '选修', '必修'],
-          courseType: 0,
-          courseList: [], //课程
+          searchKey: '',
+          searchValue : '',
+          tabbarActive: -1,
+          courseList: [],
           loading: false,
           finished: false,
           refreshing: false,
@@ -131,13 +127,15 @@
           },
         };
       },
+      created: function () {
+        var query = parseUrlQuery()
+        if (query) {
+          this.searchKey = query.searchKey || ''
+        } else {
+          this.searchKey = ''
+        }
+      },
       methods: {
-        beforeChange(index) {
-          this.courseType = index;
-          this.refreshing = true;
-          this.onRefresh();
-          return true;
-        },
         onLoad: function () {
           var _this = this;
           //刷新执行
@@ -152,7 +150,7 @@
             type: 'post',
             dataType: 'json',
             data: {
-              courseType: _this.courseType,
+              key: _this.searchKey,
               pageNo: _this.pageInfo.pageNo
             },
             success: function (response) {

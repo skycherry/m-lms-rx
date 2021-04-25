@@ -39,7 +39,7 @@ var searchMixin = {
     },
     handleSearch: function (value) {
       if (value.trim()) {
-        window.location.href='./course_search_list.html?searchKey=' + encodeURIComponent(value)
+        window.location.href='./my_course_search.html?searchKey=' + encodeURIComponent(value)
       } else {
         this.showSearch = false
       }

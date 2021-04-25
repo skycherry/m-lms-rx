@@ -1,0 +1,43 @@
+{
+  "status": 1,
+  "msg": "成功",
+  "data": {
+    "pageInfo": {
+      "total": 3,
+      "pageSize": 10,
+      "pageNo": 1
+    },
+    "list": [
+      {
+        "id": 1,
+        "complete": 0,
+        "courseTitle": "课时外教真人1对1在线视频课程...",
+        "examName": "异想世界 Vol.22 [分形插画]",
+        "dateTime": "2021-04-20 16:04",
+        "correctTime": "2021-04-30 16:04",
+        "mark": "145.00",
+        "url": ""
+      },
+      {
+        "id": 1,
+        "complete": 1,
+        "courseTitle": "课时外教真人1对1在线视频课程...",
+        "examName": "异想世界 Vol.22 [分形插画]",
+        "dateTime": "2021-04-20 16:04",
+        "correctTime": "2021-04-30 16:04",
+        "mark": "100.00",
+        "url": ""
+      },
+      {
+        "id": 1,
+        "complete": 2,
+        "courseTitle": "课时外教真人1对1在线视频课程...",
+        "examName": "异想世界 Vol.22 [分形插画]",
+        "dateTime": "2021-04-20 16:04",
+        "correctTime": "2021-04-30 16:04",
+        "mark": "145.00",
+        "url": ""
+      }
+    ]
+  }
+}

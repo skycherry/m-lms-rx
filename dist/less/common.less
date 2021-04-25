@@ -218,6 +218,9 @@ html, body{
     .van-icon-my{
       background-position: -75px -25px;
     }
+    .van-icon-classify{
+      background-position: -100px -25px;
+    }
   }
   .van-tabbar-item__icon{
     margin-bottom: 2px;
@@ -240,6 +243,9 @@ html, body{
   }
   .van-icon-my{
     background-position: -75px 0;
+  }
+  .van-icon-classify{
+    background-position: -100px 0;
   }
 }
 
@@ -385,13 +391,11 @@ html, body{
     }
   }
   .van-tag{
+    min-width: 26px;
     font-size: 11px;
-    &.van-tag--primary{
-      background-color: #5eb6d7;
-    }
-    &.van-tag--warning{
-      background-color: #d7b15e;
-    }
+    border-radius: 3px;
+    text-align: center;
+    line-height: 18px;
   }
 }
 
@@ -451,6 +455,99 @@ html, body{
     color: @gray80;
     font-size: 11px;
     text-align: justify;
+  }
+}
+
+.wow-record-list{
+  .item-content{
+    padding: 20px 0;
+    position: relative;
+  }
+  .item-title{
+    font-size: 17px;
+    color: #38393f;
+    margin-bottom: 5px;
+  }
+  .item-date, .item-time{
+    font-size: 13px;
+    color: @gray9;
+    line-height: 22px;
+  }
+  .item-rate{
+    font-size: 11px;
+    color: #5b5c66;
+    padding-top: 6px;
+    span{
+      font-size: 18px;
+    }
+  }
+  .item-link{
+    width: 90px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: @white;
+    text-align: center;
+    display: inline-block;
+    background-color: @blue;
+    position: absolute;
+    right: 0;
+    bottom: 15px;
+  }
+}
+
+.wow-exam-list{
+  .item-content{
+    padding: 20px 0;
+    position: relative;
+  }
+  .item-title{
+    font-size: 17px;
+    color: #38393f;
+    margin-bottom: 5px;
+    .van-tag{
+      line-height: 18px;
+      min-width: 26px;
+      font-size: 11px;
+      border-radius: 3px;
+      text-align: center;
+    }
+  }
+  .item-name{
+    font-size: 15px;
+    color: #38393f;
+    margin-bottom: 10px;
+  }
+  .item-info{
+    margin-bottom: 16px;
+    .info{
+      font-size: 11px;
+      line-height: 18px;
+      border: 1px solid #f0f0f0;
+      background-color: #fafafa;
+      color: @gray9;
+      border-radius: 3px;
+      padding: 5px;
+    }
+  }
+  .item-mark{
+    color: #5b5c66;
+    font-size: 18px;
+  }
+  .item-link{
+    width: 90px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: @white;
+    text-align: center;
+    display: inline-block;
+    background-color: @blue;
+    position: absolute;
+    right: 0;
+    bottom: 15px;
   }
 }
 

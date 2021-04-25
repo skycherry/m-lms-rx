@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../dist/css/main.css">
 </head>
 <body>
-<div class="views" id="myCoursePage" v-cloak>
+<div class="views" id="myRecordPage" v-cloak>
   <!-- 顶部导航 -->
   <div class="wow-navbar">
     <a href="./index.html" class="logo" v-show="!showSearch"><img src="../dist/images/logo.png" alt=""></a>
@@ -22,12 +22,12 @@
       <!--show-action-->
       <form action="/">
         <van-search
-            ref="search"
-            v-model="searchValue"
-            placeholder="请输入搜索课程"
-            show-action
-            @search="handleSearch"
-            @cancel="handleSearchCancel"
+                ref="search"
+                v-model="searchValue"
+                placeholder="请输入搜索课程"
+                show-action
+                @search="handleSearch"
+                @cancel="handleSearchCancel"
         ></van-search>
       </form>
     </div>
@@ -52,48 +52,28 @@
   <!-- 正文内容 -->
   <div class="page">
     <div class="page-content">
-      <!-- 课程 -->
-      <van-tabs class="course-search-tabs" :before-change="beforeChange" sticky>
-        <van-tab v-for="index in tabNames.length" :title="tabNames[index - 1]">
-          <section class="course-search-page">
-            <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-              <van-list
-                      class="wow-course-list"
-                      v-model="loading"
-                      :finished="finished"
-                      :finished-text="courseList.length ? '没有更多了' : '暂无课程信息'"
-                      @load="onLoad">
-                <div class="list-item van-hairline--bottom"
-                     v-for="(item, index) in courseList"
-                     :key="index">
-                  <a :href="item.url" class="item-content">
-                    <div class="item-thumb van-hairline--surround">
-                      <img :src="item.imgUrl" alt="">
-                    </div>
-                    <div class="item-info">
-                      <div class="info-title van-multi-ellipsis--l2">
-                        <!-- 完成状态 -->
-                        <van-tag color="#5eb6d7" v-if="item.complete == 0">已完成</van-tag>
-                        <van-tag color="#d7b15e" v-else-if="item.complete == 1">未完成</van-tag>
-                        <van-tag color="#999999" v-else>过期</van-tag>
-
-                        <span v-text="item.details">item.details</span>
-                      </div>
-                      <div class="info-date">
-                        <span class="date">到期时间：<span v-text="item.dueDate"></span></span>
-                        <!-- 课程类型 -->
-                        <span class="type" v-if="item.type == 0">过期</span>
-                        <span class="type blue" v-else-if="item.type == 1">选修</span>
-                        <span class="type orange" v-else>必修</span>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </van-list>
-            </van-pull-refresh>
-          </section>
-        </van-tab>
-      </van-tabs>
+      <section class="course-search-page">
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list
+                  class="wow-record-list"
+                  v-model="loading"
+                  :finished="finished"
+                  :finished-text="recordList.length ? '没有更多了' : '暂无课程信息'"
+                  @load="onLoad">
+            <div class="list-item van-hairline--bottom"
+                 v-for="(item, index) in recordList"
+                 :key="index">
+              <div class="item-content">
+                <div class="item-title van-ellipsis">{{ item.title }}</div>
+                <div class="item-date">开始时间：{{ item.date }}</div>
+                <div class="item-time">学习时长：{{ item.time }}分钟</div>
+                <div class="item-rate">完成率：<span>{{ item.rate }}</span></div>
+                <a :href="item.url" class="item-link">查看</a>
+              </div>
+            </div>
+          </van-list>
+        </van-pull-refresh>
+      </section>
     </div>
   </div>
   <!-- 底部导航 -->
@@ -111,16 +91,14 @@
 <script src="../dist/js/common.js"></script>
 <script>
   $(function() {
-    var myCoursePage = new Vue({
-      el: '#myCoursePage',
+    var myRecordPage = new Vue({
+      el: '#myRecordPage',
       mixins: [searchMixin],
       data: function () {
         return {
           searchValue: '',
-          tabbarActive: 0,
-          tabNames: ['全部课程', '选修', '必修'],
-          courseType: 0,
-          courseList: [], //课程
+          tabbarActive: 2,
+          recordList: [],
           loading: false,
           finished: false,
           refreshing: false,
@@ -132,37 +110,30 @@
         };
       },
       methods: {
-        beforeChange(index) {
-          this.courseType = index;
-          this.refreshing = true;
-          this.onRefresh();
-          return true;
-        },
         onLoad: function () {
           var _this = this;
           //刷新执行
           if (_this.refreshing) {
             _this.pageInfo.pageNo = 1;
-            _this.courseList = [];
+            _this.recordList = [];
             _this.refreshing = false;
           }
           //加载数据
           $.ajax({
-            url: '../data/my_course.json',
+            url: '../data/my_record.json',
             type: 'post',
             dataType: 'json',
             data: {
-              courseType: _this.courseType,
               pageNo: _this.pageInfo.pageNo
             },
             success: function (response) {
               if (response.status == 1) {
                 if (Array.isArray(response.data.list)) {
                   response.data.list.forEach(function (item) {
-                    _this.courseList.push(item)
+                    _this.recordList.push(item)
                   })
                 }
-                if (_this.courseList.length >= response.data.pageInfo.total) {
+                if (_this.recordList.length >= response.data.pageInfo.total) {
                   _this.finished = true;
                 }
                 _this.pageInfo.pageNo ++;
