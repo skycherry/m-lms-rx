@@ -33,10 +33,9 @@
                preload="none"
                :poster="activeUnit.unitCoverImg"
                data-setup="{}">
-          <source :src="activeUnit.unitVideoUrl" type="video/mp4">
+          <source :src="activeUnit.unitVideoUrl" type="application/x-mpegURL">
         </video>
       </section>
-
       <section class="cd-video-nam van-hairline--bottom" v-if="activeUnit" v-text="activeUnit.unitName"></section>
       <van-collapse v-model="activeNames"
                     class="course-chapter"
@@ -54,8 +53,12 @@
             <div class="list-item" v-for="(unit, index) in chapter.unitList" :key="unit.unitId"
                  :class="{active: unit.unitId == activeUnitId}">
               <!--单元跳转的地址-->
-              <a :href="(unit.unitType == 0 || unit.unitType == 1) ? './course_details.html?chapterId=' + chapter.chapterId +'&unitId=' + unit.unitId : unit.unitFileUrl"
+              <a :href="unit.unitType == 0 || unit.unitType == 1 ? './course_details.html?chapterId=' + chapter.chapterId +'&unitId=' + unit.unitId : unit.unitFileUrl"
                  class="item-link">
+                <span v-if="unit.unitType == 0" class="icon icon-video"></span>
+                <span v-else-if="unit.unitType == 1" class="icon icon-audio"></span>
+                <span v-else class="icon icon-image"></span>
+
                 <div class="link-text van-ellipsis" v-text="unit.unitName"></div>
                 <span class="link-time">{{ unit.unitTime }}min</span>
               </a>

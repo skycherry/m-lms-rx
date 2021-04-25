@@ -1073,8 +1073,14 @@ html, body{
     &.active{
       .item-link{
         color: @blue;
-        &:before{
+        .icon-video{
           background-image: url("../images/d_icon_video.png");
+        }
+        .icon-audio{
+
+        }
+        .icon-image{
+
         }
       }
     }
@@ -1092,15 +1098,22 @@ html, body{
     box-sizing: border-box;
     border-radius: 2px;
     font-size: 12px;
-    &:before{
+    .icon{
       width: 14px;
       height: 14px;
       display: inline-block;
-      content: "";
       background-image: url("../images/d_icon_video2.png");
-      background-repeat: no-repeat;
       background-size: 100%;
       margin-right: 10px;
+    }
+    .icon-video{
+
+    }
+    .icon-audio{
+
+    }
+    .icon-image{
+
     }
   }
   .link-text{

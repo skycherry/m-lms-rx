@@ -10,7 +10,7 @@ $(function() {
         activeUnit: null,
         chapterList: [],
         courseInfo: {},
-        myPlayer: null,
+        interval: 0,
       };
     },
     created: function () {
@@ -88,7 +88,50 @@ $(function() {
         })
       },
       initVideo: function () {
-        this.myPlayer = videojs('wow-video');
+        var that = this;
+        var myPlayer = videojs('wow-video');
+        myPlayer.on('play', function () {
+          console.log('play');
+          that.interval = setInterval(function () {
+            var currentTime = myPlayer.currentTime();
+            that.submitCurrentTime(currentTime, '1010', 0);
+          },2000);
+        });
+        myPlayer.on('ended', function () {
+          clearInterval(that.interval);
+          var currentTime = myPlayer.currentTime();
+          that.submitCurrentTime(currentTime, '1010', 1);
+        });
+      },
+      submitCurrentTime: function (currentTime, id, isOver){
+        var that = this;
+        $.ajax({
+          url: '../data/banner.json',
+          data: {currentTime: currentTime, id: id, isOver: isOver},
+          type: 'post',
+          dataType: 'json',
+          success: function (response) {
+            if (response.status == 1) {
+              //需要返回的数据
+              //---finish：是否看完 （0、未看完 1、已看完）
+              //---name: 下节课名称
+              //---url: 下节课地址
+              var _data = response.data;
+              if(_data.finish == 1 && isOver == 1) {
+                if (_data.url) {
+                  // 跳页
+                } else {
+                  // 显示没有下一节的内容
+                }
+              }
+            }else{
+              clearInterval(that.interval);
+            }
+          },
+          error: function () {
+            clearInterval(that.interval);
+          }
+        })
       }
     }
   });
