@@ -4,18 +4,24 @@ $(function() {
     data: function () {
       return {
         tabbarActive: -1,
+        courseId: '',
         activeNames: [1],
         activeUnitId: '',
         activeUnit: null,
         chapterList: [],
-        teacherList: []
+        courseInfo: {},
+        myPlayer: null,
       };
     },
     created: function () {
       var queryObj = parseUrlQuery();
-      this.activeNames = []
-      this.activeUnit = ''
+      this.courseId = '';
+      this.activeNames = [];
+      this.activeUnit = '';
       if (queryObj) {
+        if (queryObj.courseId) {
+          this.courseId = queryObj.courseId
+        }
         if (queryObj.chapterId) {
           this.activeNames = [parseInt(queryObj.chapterId)]
         }
@@ -32,7 +38,9 @@ $(function() {
           url: '../data/course_details.json',
           type: 'post',
           dataType: 'json',
-          data: {},
+          data: {
+            courseId: _this.courseId
+          },
           success: function (response) {
             if (response.status == 1) {
               if (Array.isArray(response.data.chapterList)) {
@@ -64,14 +72,15 @@ $(function() {
                   }
                 })
               }
-              if (Array.isArray(response.data.teacherList)) {
-                response.data.teacherList.forEach(function (item) {
-                  _this.teacherList.push(item);
-                })
+              //课程详情
+              if (response.data.courseInfo) {
+                _this.courseInfo = response.data.courseInfo;
               }
               if (_this.activeUnit) {
                 _this.$nextTick(function () {
-                  _this.initVideo()
+                  if ($('#wow-video').length) {
+                    _this.initVideo()
+                  }
                 })
               }
             }
@@ -79,7 +88,7 @@ $(function() {
         })
       },
       initVideo: function () {
-        var myPlayer = videojs('wow-video');
+        this.myPlayer = videojs('wow-video');
       }
     }
   });

@@ -830,6 +830,13 @@ html, body{
 }
 
 //课程详情
+.cd-image-wrap{
+  padding: 20px;
+  img{
+    max-width: 100%;
+    display: block;
+  }
+}
 .wow-video-wrap{
   padding-top: 56%;
   position: relative;
@@ -1005,6 +1012,9 @@ html, body{
     }
   }
   .van-cell{
+    &:active{
+      background: none!important;
+    }
     padding: 10px 0;
     &:after{
       border-width: 0;

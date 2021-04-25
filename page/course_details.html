@@ -19,22 +19,24 @@
   <div class="wow-navbar">
     <a href="javascript:history.back(-1)" class="nav-back" style="margin-right: 0">
       <i class="icon-back"></i>
-      <span class="navbar-title van-ellipsis" v-if="activeUnit" v-text="activeUnit.unitName"></span>
+      <span class="navbar-title van-ellipsis" v-text="courseInfo.courseName"></span>
     </a>
   </div>
   <!-- 正文内容 -->
   <div class="page with-navbar2">
     <div class="page-content">
-      <section class="wow-video-wrap" v-if="activeUnit">
+      <!-- unitType 0视频、1音频、2图片、3pdf -->
+      <section class="wow-video-wrap" v-if="activeUnit && activeUnit.unitType == 0">
         <video id="wow-video"
                class="video-js my-vj-skin"
                controls="controls"
                preload="none"
                :poster="activeUnit.unitCoverImg"
                data-setup="{}">
-          <source :src="activeUnit.unitVideoUrl" type="application/x-mpegURL">
+          <source :src="activeUnit.unitVideoUrl" type="video/mp4">
         </video>
       </section>
+
       <section class="cd-video-nam van-hairline--bottom" v-if="activeUnit" v-text="activeUnit.unitName"></section>
       <van-collapse v-model="activeNames"
                     class="course-chapter"
@@ -52,60 +54,41 @@
             <div class="list-item" v-for="(unit, index) in chapter.unitList" :key="unit.unitId"
                  :class="{active: unit.unitId == activeUnitId}">
               <!--单元跳转的地址-->
-              <a :href="'./course_details.html?chapterId=' + chapter.chapterId +'&unitId=' + unit.unitId"
+              <a :href="(unit.unitType == 0 || unit.unitType == 1) ? './course_details.html?chapterId=' + chapter.chapterId +'&unitId=' + unit.unitId : unit.unitFileUrl"
                  class="item-link">
                 <div class="link-text van-ellipsis" v-text="unit.unitName"></div>
-                <span class="link-time" v-text="unit.unitTime"></span>
+                <span class="link-time">{{ unit.unitTime }}min</span>
               </a>
             </div>
           </div>
         </van-collapse-item>
       </van-collapse>
-      <!--名师专栏-->
-      <section class="cd-section" v-if="teacherList.length">
-        <div class="cd-section-header">
-          <span class="header-title">名师专栏</span>
-        </div>
-        <van-swipe :width="240" :show-indicators="false" class="cd-teacher-list">
-          <van-swipe-item class="list-item" v-for="item in teacherList" :key="item.id">
-            <a :href="item.url" class="item-content">
-              <div class="item-thumb van-hairline--surround">
-                <img :src="item.imgUrl" alt="">
-              </div>
-              <div class="item-info">
-                <div class="info-name" v-text="item.name"></div>
-                <div class="info-details van-multi-ellipsis--l2" v-text="item.details"></div>
-              </div>
-            </a>
-          </van-swipe-item>
-        </van-swipe>
-      </section>
       <!--课程详情-->
       <section class="cd-section" v-if="activeUnit">
         <div class="cd-section-header">
           <span class="header-title">课程详情</span>
         </div>
-        <div class="cd-details-bar">
+        <div class="cd-details-bar" v-if="courseInfo.courseExternal || courseInfo.coursePDF">
           <van-row>
             <van-col span="11">
               <div class="wow-button w-free">
-                <a :href="activeUnit.unitExternal" v-if="activeUnit && activeUnit.unitExternal" class="van-button van-button--info van-button--block van-button--round">进入课程学习</a>
+                <a :href="courseInfo.courseExternal" v-if="courseInfo.courseExternal" class="van-button van-button--info van-button--block van-button--round">进入课程学习</a>
               </div>
             </van-col>
             <van-col span="13" class="align-right">
-              <a :href="activeUnit.unitPDF" v-if="activeUnit" class="cd-download-button">下载完整版PDF介绍</a>
+              <a :href="courseInfo.coursePDF" v-if="courseInfo.coursePDF" class="cd-download-button">下载完整版PDF介绍</a>
             </van-col>
           </van-row>
         </div>
-        <div class="cd-details-content" v-if="activeUnit" v-html="activeUnit.unitDescription"></div>
+        <div class="cd-details-content" v-html="courseInfo.courseDescription"></div>
       </section>
     </div>
   </div>
   <!-- 底部导航 -->
   <van-tabbar v-model="tabbarActive" class="wow-tabbar">
-    <van-tabbar-item icon="index" url="./index.html">首页</van-tabbar-item>
-    <van-tabbar-item icon="sort" url="./course_sort.html">分类</van-tabbar-item>
-    <van-tabbar-item icon="my" url="./my.html">我的</van-tabbar-item>
+    <van-tabbar-item icon="course" url="./my_course.html">课程</van-tabbar-item>
+    <van-tabbar-item icon="exam" url="./my_exam.html">考试</van-tabbar-item>
+    <van-tabbar-item icon="record" url="./my_record.html">学习记录</van-tabbar-item>
   </van-tabbar>
 </div>
 
