@@ -90,9 +90,9 @@
   </div>
   <!-- 底部导航 -->
   <van-tabbar v-model="tabbarActive" class="wow-tabbar">
-    <van-tabbar-item icon="course" url="./my_course.html">课程</van-tabbar-item>
-    <van-tabbar-item icon="exam" url="./my_exam.html">考试</van-tabbar-item>
-    <van-tabbar-item icon="record" url="./my_record.html">学习记录</van-tabbar-item>
+    <van-tabbar-item name="course" icon="course" url="./my_course.html">课程</van-tabbar-item>
+    <van-tabbar-item name="exam" icon="exam" url="./my_exam.html">考试</van-tabbar-item>
+    <van-tabbar-item name="record" icon="record" url="./my_record.html">学习记录</van-tabbar-item>
   </van-tabbar>
 </div>
 <!-- Path to Library JS-->
@@ -109,7 +109,7 @@
       data: function () {
         return {
           searchValue: '',
-          tabbarActive: 1,
+          tabbarActive: 'course',
           examList: [],
           loading: false,
           finished: false,

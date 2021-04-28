@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>woskill</title>
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/lib/vant/index.css">
+  <link rel="stylesheet" href="../dist/lib/video/video-js.css">
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/css/main.css">
+</head>
+<body>
+<div class="views" id="courseDetails" v-cloak>
+  <!-- 正文内容 -->
+  <div class="page with-navbar2">
+    <div class="page-content">
+      <a href="javascript:;" @click="downloadFile('aaa')" download="/images/logo.png">下载</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Path to Library JS-->
+<script src="../dist/lib/zepto.min.js"></script>
+<script src="../dist/lib/vue.min.js"></script>
+<script src="../dist/lib/vant/vant.min.js"></script>
+
+<script src="../dist/lib/video/video.js"></script>
+<script src="../dist/lib/video/videojs-contrib-hls.min.js"></script>
+<!-- Path to Library JS-->
+<script>
+  $(function() {
+    var courseDetails = new Vue({
+      el: '#courseDetails',
+      data: function () {
+        return {};
+      },
+      created: function () {},
+      methods: {
+        downloadFile: function (filenamerel) {
+          var $downForm = $("<form method='get'></form>");
+          $downForm.attr("action", "https://file.wowlms.ruixinnj.com/file/courseware/20210426/20210426161251_86845.jpg");
+          var $input = $("<input type='hidden'>");
+          $input.attr("name","filenamerel");
+          $input.val(filenamerel);
+          $downForm.append($input);
+          $(document.body).append($downForm);
+          // //提交表单，实现下载
+          $downForm.submit();
+        }
+      }
+    });
+  })
+
+</script>
+</body>
+</html>

@@ -8,9 +8,9 @@ $(function() {
         activeNames: [1],
         activeUnitId: '',
         activeUnit: null,
+        activeUnitVideoCurrentTime: 0,
         chapterList: [],
         courseInfo: {},
-        interval: 0,
       };
     },
     created: function () {
@@ -55,18 +55,20 @@ $(function() {
                     if (Array.isArray(item.unitList)) {
                       item.unitList.forEach(function (unit, uIndex) {
                         if (unit.unitId == _this.activeUnitId) {
-                          _this.activeUnit = unit
-                          activeUnitIndex = uIndex
+                          activeUnitIndex = uIndex;
+                          _this.activeUnit = unit;
+                          _this.activeUnitVideoCurrentTime = unit.unitVideoCurrentTime;
                         }
                       })
                     }
                     if (activeUnitIndex === -1) {
                       if(Array.isArray(item.unitList) && item.unitList.length) {
-                        _this.activeUnit = item.unitList[0]
-                        _this.activeUnitId = item.unitList[0].unitId
+                        _this.activeUnit = item.unitList[0];
+                        _this.activeUnitId = item.unitList[0].unitId;
+                        _this.activeUnitVideoCurrentTime = item.unitList[0].unitVideoCurrentTime;
                       } else {
-                        _this.activeUnit = null
-                        _this.activeUnitId = ''
+                        _this.activeUnit = null;
+                        _this.activeUnitId = '';
                       }
                     }
                   }
@@ -78,6 +80,7 @@ $(function() {
               }
               if (_this.activeUnit) {
                 _this.$nextTick(function () {
+                  // 存在video 初始化
                   if ($('#wow-video').length) {
                     _this.initVideo()
                   }
@@ -89,25 +92,56 @@ $(function() {
       },
       initVideo: function () {
         var that = this;
+        var interval = 0; // 定时器
+        var networkStateInv = 0; // 网络定时器
+
         var myPlayer = videojs('wow-video');
+
+        // 初始化
+        myPlayer.ready(function(){
+          myPlayer.currentTime(that.activeUnitVideoCurrentTime);
+          myPlayer.play();
+        });
+        //播放
         myPlayer.on('play', function () {
-          console.log('play');
-          that.interval = setInterval(function () {
+          interval = setInterval(function () {
             var currentTime = myPlayer.currentTime();
-            that.submitCurrentTime(currentTime, '1010', 0);
+            that.submitCurrentTime(currentTime, that.courseId, that.activeUnitId, 0);
           },2000);
         });
-        myPlayer.on('ended', function () {
-          clearInterval(that.interval);
-          var currentTime = myPlayer.currentTime();
-          that.submitCurrentTime(currentTime, '1010', 1);
+        //暂停
+        myPlayer.on('pause', function () {
+          clearInterval(interval);
         });
+        //播放完毕
+        myPlayer.on('ended', function () {
+          //退出全屏
+          if (myPlayer.isFullscreen_) {
+            myPlayer.exitFullscreen()
+          }
+          //停止定时器
+          clearInterval(interval);
+          clearInterval(networkStateInv);
+          //观看结束提交
+          var currentTime = myPlayer.currentTime();
+          that.submitCurrentTime(currentTime, that.courseId, that.activeUnitId, 1);
+        });
+
+        //网络错误显示
+        networkStateInv = setInterval(function () {
+          var networkState = myPlayer.networkState();
+          if(networkState !== 1 && networkState !== 2) {
+            clearInterval(interval);
+            clearInterval(networkStateInv);
+          }
+        }, 1000);
+
       },
-      submitCurrentTime: function (currentTime, id, isOver){
+      submitCurrentTime: function (currentTime, courseId, unitId, isOver){
         var that = this;
         $.ajax({
-          url: '../data/banner.json',
-          data: {currentTime: currentTime, id: id, isOver: isOver},
+          url: '',
+          data: {currentTime: currentTime, courseId: courseId, unitId: unitId, isOver: isOver},
           type: 'post',
           dataType: 'json',
           success: function (response) {
@@ -119,9 +153,7 @@ $(function() {
               var _data = response.data;
               if(_data.finish == 1 && isOver == 1) {
                 if (_data.url) {
-                  // 跳页
-                } else {
-                  // 显示没有下一节的内容
+                  // 跳转到下一页
                 }
               }
             }else{
@@ -132,7 +164,31 @@ $(function() {
             clearInterval(that.interval);
           }
         })
-      }
+      },
+      submitStudyResult: function (unit) {
+        var that = this;
+        console.log('that', that.imagePreview)
+        // 图片
+        if (unit.unitType == 4) {
+
+        }
+
+
+
+        if (unit.unitType !== 0 && unit.unitType !== 1) {
+          $.ajax({
+            url: '',
+            data: {courseId: that.courseId, unitId: unit.unitId},
+            type: 'post',
+            dataType: 'json',
+            success: function (response) {
+              if (response.status == 1) {
+
+              }
+            }
+          })
+        }
+      }, // 图片和pdf时点击计算学习结果
     }
   });
 })
