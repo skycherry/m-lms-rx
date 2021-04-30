@@ -53,20 +53,21 @@
             <div class="list-item" v-for="(unit, index) in chapter.unitList" :key="unit.unitId"
                  :class="{active: unit.unitId == activeUnitId, completed: unit.unitCompleted == 1}">
               <!--单元跳转的地址-->
-              <a v-if="unit.unitType == 0 || unit.unitType == 1" :href="'./course_details.html?courseId=' + courseId + '&chapterId=' + chapter.chapterId + '&unitId=' + unit.unitId"
+              <a v-if="unit.unitType == 1 || unit.unitType == 2" :href="'./course_details.html?courseId=' + courseId + '&chapterId=' + chapter.chapterId + '&unitId=' + unit.unitId"
                  class="item-link">
-                <span v-if="unit.unitType == 0" class="icon icon-video"></span>
-                <span v-if="unit.unitType == 1" class="icon icon-audio"></span>
+                <span v-if="unit.unitType == 1" class="icon icon-video"></span>
+                <span v-if="unit.unitType == 2" class="icon icon-audio"></span>
 
                 <div class="link-text van-ellipsis" v-text="unit.unitName"></div>
                 <span class="link-time">{{ unit.unitTime }}min</span>
               </a>
                 <!-- 图片、pdf直接下载 -->
-                <a v-else :href="unit.unitType == 4 ? unit.unitFileUrl : 'javascript:;'"
-                   @click="submitStudyResult(unit)"
+                <a v-else :href="unit.unitFileUrl"
+                   @click="submitStudyResult($event, unit)"
                    download=""
                    class="item-link">
                     <span class="icon icon-image"></span>
+                    {{unit.unitType}}
 
                     <div class="link-text van-ellipsis" v-text="unit.unitName"></div>
                     <span class="link-time">{{ unit.unitTime }}min</span>

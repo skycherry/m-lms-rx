@@ -165,16 +165,17 @@ $(function() {
           }
         })
       },
-      submitStudyResult: function (unit) {
+      submitStudyResult: function (e, unit) {
         var that = this;
-        console.log('that', that.imagePreview)
-        // 图片
+        // 图片预览
         if (unit.unitType == 4) {
-
+          e.preventDefault();
+          window.vant.ImagePreview({
+            images: [unit.unitFileUrl],
+            closeable: true,
+            showIndex: false
+          });
         }
-
-
-
         if (unit.unitType !== 0 && unit.unitType !== 1) {
           $.ajax({
             url: '',
@@ -188,6 +189,7 @@ $(function() {
             }
           })
         }
+        alert(111111)
       }, // 图片和pdf时点击计算学习结果
     }
   });

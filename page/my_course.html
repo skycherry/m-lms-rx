@@ -52,48 +52,80 @@
   <!-- 正文内容 -->
   <div class="page">
     <div class="page-content">
-      <!-- 课程 -->
-      <van-tabs class="course-search-tabs" :before-change="beforeChange" sticky>
-        <van-tab v-for="index in tabNames.length" :title="tabNames[index - 1]">
-          <section class="course-search-page">
-            <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-              <van-list
-                      class="wow-course-list"
-                      v-model="loading"
-                      :finished="finished"
-                      :finished-text="courseList.length ? '没有更多了' : '暂无课程信息'"
-                      @load="onLoad">
-                <div class="list-item van-hairline--bottom"
-                     v-for="(item, index) in courseList"
-                     :key="index">
-                  <a :href="item.url" class="item-content">
-                    <div class="item-thumb van-hairline--surround">
-                      <img :src="item.imgUrl" alt="">
-                    </div>
-                    <div class="item-info">
-                      <div class="info-title van-multi-ellipsis--l2">
-                        <!-- 完成状态 -->
-                        <van-tag color="#5eb6d7" v-if="item.complete == 0">已完成</van-tag>
-                        <van-tag color="#d7b15e" v-else-if="item.complete == 1">未完成</van-tag>
-                        <van-tag color="#999999" v-else>过期</van-tag>
-
-                        <span v-text="item.details">item.details</span>
-                      </div>
-                      <div class="info-date">
-                        <span class="date">到期时间：<span v-text="item.dueDate"></span></span>
-                        <!-- 课程类型 -->
-                        <span class="type" v-if="item.type == 0">过期</span>
-                        <span class="type blue" v-else-if="item.type == 1">选修</span>
-                        <span class="type orange" v-else>必修</span>
-                      </div>
-                    </div>
-                  </a>
+      <!-- 下来菜单 -->
+      <van-sticky class="course-search-sticky">
+        <div class="course-search-tabs van-hairline--bottom">
+          <van-row>
+            <van-col span="8" class="tabs-item" :class="courseType == 0 ? 'active': ''">
+              <van-dropdown-menu active-color="#667ce3">
+                <van-dropdown-item v-model="classType"
+                                   :options="classTypeList"
+                                   @closed="reloadClassType"
+                                   @change="changeClassType"></van-dropdown-item>
+              </van-dropdown-menu>
+            </van-col>
+            <van-col span="8" class="tabs-item" :class="courseType == 1 ? 'active': ''">
+              <span v-show="classType == 0"  @click="changeCourseType(1)">选修</span>
+            </van-col>
+            <van-col span="8" class="tabs-item" :class="courseType == 2 ? 'active': ''">
+              <span v-show="classType == 0"  @click="changeCourseType(2)">必修</span>
+            </van-col>
+          </van-row>
+        </div>
+      </van-sticky>
+      <section class="course-search-page">
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list
+                  class="wow-course-list"
+                  v-model="loading"
+                  :finished="finished"
+                  :finished-text="courseList.length ? '没有更多了' : '暂无课程信息'"
+                  @load="onLoad">
+            <div class="list-item van-hairline--bottom"
+                 v-for="(item, index) in courseList"
+                 :key="index">
+              <a :href="item.url" class="item-content">
+                <div class="item-thumb van-hairline--surround">
+                  <img :src="item.imgUrl" alt="">
                 </div>
-              </van-list>
-            </van-pull-refresh>
-          </section>
-        </van-tab>
-      </van-tabs>
+                <!-- 线上课 -->
+                <div class="item-info" v-if="classType == 0">
+                  <div class="info-title van-multi-ellipsis--l2">
+                    <!-- 完成状态 -->
+                    <van-tag color="#5eb6d7" v-if="item.complete == 0">已完成</van-tag>
+                    <van-tag color="#d7b15e" v-else-if="item.complete == 1">未完成</van-tag>
+                    <van-tag color="#999999" v-else>过期</van-tag>
+
+                    <span v-text="item.details">item.details</span>
+                  </div>
+                  <div class="info-date">
+                    <span class="date">到期时间：<span v-text="item.dueDate"></span></span>
+                    <!-- 课程类型 -->
+                    <span class="type" v-if="item.type == 0">过期</span>
+                    <span class="type blue" v-else-if="item.type == 1">选修</span>
+                    <span class="type orange" v-else>必修</span>
+                  </div>
+                </div>
+                <!-- 线下课 -->
+                <div class="item-info" v-if="classType == 1">
+                  <div class="info-title van-multi-ellipsis--l2">
+                    <!-- 完成状态 -->
+                    <van-tag color="#5eb6d7" v-if="item.complete == 0">已预约</van-tag>
+                    <van-tag color="#999999" v-else>未预约</van-tag>
+
+                    <span v-text="item.details">item.details</span>
+                  </div>
+                  <div>
+                    <div v-if="item.complete == 0">
+                      <a @click="bookCourse" class="item-link">预约</a>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </van-list>
+        </van-pull-refresh>
+      </section>
     </div>
   </div>
   <!-- 底部导航 -->
@@ -129,6 +161,11 @@
             pageSize: 10,
             pageNo: 1
           },
+          classType: 0,
+          classTypeList: [
+            { text: '线上课', value: 0 },
+            { text: '线下课', value: 1 }
+          ],
         };
       },
       methods: {
@@ -136,25 +173,29 @@
           this.courseType = index;
           this.refreshing = true;
           this.onRefresh();
-          return true;
         },
         onLoad: function () {
           var _this = this;
+          var _data = {};
           //刷新执行
           if (_this.refreshing) {
             _this.pageInfo.pageNo = 1;
             _this.courseList = [];
             _this.refreshing = false;
           }
+
+          if (_this.classType == 0) {
+            _data = { classType: _this.classType, courseType: _this.courseType, pageNo: _this.pageInfo.pageNo}
+          } else {
+            _data = { classType: _this.classType, pageNo: _this.pageInfo.pageNo}
+          }
+
           //加载数据
           $.ajax({
             url: '../data/my_course.json',
             type: 'post',
             dataType: 'json',
-            data: {
-              courseType: _this.courseType,
-              pageNo: _this.pageInfo.pageNo
-            },
+            data: _data,
             success: function (response) {
               if (response.status == 1) {
                 if (Array.isArray(response.data.list)) {
@@ -180,6 +221,22 @@
           // 将 loading 设置为 true，表示处于加载状态
           this.loading = true;
           this.onLoad();
+        },
+        changeCourseType: function (courseType) {
+          this.courseType = courseType;
+          this.refreshing = true;
+          this.onRefresh();
+        },
+        changeClassType:function (value) {
+          this.classType = value;
+        },
+        reloadClassType: function () {
+          this.courseType = 0;
+          this.refreshing = true;
+          this.onRefresh();
+        },
+        bookCourse: function () {
+
         }
       }
     });

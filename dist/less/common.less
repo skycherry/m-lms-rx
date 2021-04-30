@@ -325,6 +325,9 @@ html, body{
 .wow-course-list{
   .list-item{
     padding: 20px 0;
+    &:after{
+      border-color: @grayE5;
+    }
   }
   .item-content{
     display: flex;
@@ -1267,8 +1270,71 @@ html, body{
   }
 }
 
-// 我的课程
+.class-type-menu{
+  //width: 33%;
+  //position: fixed;
+  //z-index: 110;
+  .van-dropdown-menu__bar{
+    box-shadow: none;
+    height: 40px;
+  }
+}
+.course-search-sticky{
+  .van-sticky--fixed{
+    top: 80px;
+    z-index: 10000;
+  }
+}
 .course-search-tabs{
+  background-color: @white;
+  &:after{
+    border-color: @grayE5;
+  }
+  .tabs-item{
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    position: relative;
+    font-size: 15px;
+    span{
+      display: block;
+    }
+    &.active{
+      color: @blue;
+      .van-dropdown-menu__title{
+        color: @blue;
+        &:after{
+          border-color: transparent transparent @blue @blue;
+        }
+      }
+    }
+    &:first-child{
+      &:before{
+        display: none;
+      }
+    }
+    &:before{
+      position: absolute;
+      content: ' ';
+      top: -25%;
+      bottom: -25%;
+      left: 0;
+      border: 0 solid @grayE5;
+      border-width: 0 0 0 1px;
+      transform: scale(.5);
+    }
+  }
+  .van-dropdown-menu__bar{
+    height: 40px;
+    box-shadow: none;
+    background: none;
+  }
+}
+
+// 我的课程
+.course-search-tabs1{
+  position: relative;
+  z-index: 100;
   .van-sticky--fixed{
     top: 80px;
   }

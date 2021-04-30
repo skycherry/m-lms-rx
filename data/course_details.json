@@ -14,7 +14,7 @@
             "unitCoverImg": "../dist/images/c_pic.jpg",
             "unitVideoUrl": "../wayne.mp4",
             "unitVideoCurrentTime": 0,
-            "unitType": 0,
+            "unitType": 1,
             "unitCompleted": 0
           },
           {
@@ -22,8 +22,8 @@
             "unitName": "但是但是范德萨发司法鉴定但是但是范德萨发司法鉴定",
             "unitTime": 56,
             "unitCoverImg": "",
-            "unitFileUrl": "https://file.elearning.ruixinnj.com/file/courseware/20210428/20210428173548_96191.png",
-            "unitType": 2,
+            "unitFileUrl": "../dist/images/c_pic.jpg",
+            "unitType": 4,
             "unitCompleted": 1
           }
         ]
@@ -39,7 +39,7 @@
             "unitCoverImg": "../dist/images/c_pic.jpg",
             "unitVideoUrl": "../wayne.mp4",
             "unitVideoCurrentTime": 100,
-            "unitType": 1,
+            "unitType": 2,
             "unitCompleted": 1
           }
         ]
