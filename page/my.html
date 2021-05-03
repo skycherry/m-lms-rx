@@ -115,9 +115,58 @@
         <div class="op-bar">
           <van-button round type="info" class="btn-save" @click="handleSaveInfo">保存</van-button>
         </div>
+        <div style="display: inline-block; vertical-align: middle; line-height: 44px; margin-left: 10px;">
+          <a href="javascript:;" class="color-blue" @click="popupModifyPassword">修改密码</a>
+        </div>
       </div>
     </div>
   </div>
+  <!-- 修改密码 -->
+  <van-popup v-model="showModifyPopup" @closed="closeModifyPopup" closeable position="bottom">
+    <div class="popup-panel">
+      <div class="my-base-info" style="padding-bottom: 70px; padding-top: 18px;">
+        <h3 class="title">修改密码</h3>
+        <div class="info-field js-input js-original-password">
+          <div class="info-body">
+            <div class="info-fill">
+              <input type="password"
+                     v-model="modifyPasswordInfo.originalPassword"
+                     placeholder="请输入原密码"
+                     class="fill-control" @focus="clearInputError">
+            </div>
+            <div class="info-error"></div>
+          </div>
+        </div>
+        <div class="info-field js-input js-new-password">
+          <div class="info-body">
+            <div class="info-fill">
+              <input type="password"
+                     v-model="modifyPasswordInfo.newPassword"
+                     placeholder="请输入新密码"
+                     class="fill-control" @focus="clearInputError">
+            </div>
+            <div class="info-error"></div>
+          </div>
+        </div>
+        <div class="info-field js-input js-new-password2">
+          <div class="info-body">
+            <div class="info-fill">
+              <input type="password"
+                     v-model="modifyPasswordInfo.newPassword2"
+                     placeholder="请再次输入新密码"
+                     class="fill-control" @focus="clearInputError">
+            </div>
+            <div class="info-error"></div>
+          </div>
+        </div>
+        <div class="my-info-op" style="padding: 0;">
+          <div class="op-bar">
+            <van-button round type="info" class="btn-save" @click="handleModifyPassword">保存</van-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </van-popup>
   <!-- 弹窗 -->
   <van-popup v-model="showPicker" position="bottom">
     <van-picker
@@ -131,9 +180,9 @@
   </van-popup>
   <!-- 底部导航 -->
   <van-tabbar v-model="tabbarActive" class="wow-tabbar">
-    <van-tabbar-item icon="index" url="./index.html">首页</van-tabbar-item>
-    <van-tabbar-item icon="sort" url="./course_sort.html">分类</van-tabbar-item>
-    <van-tabbar-item icon="my" url="./my.html">我的</van-tabbar-item>
+    <van-tabbar-item icon="course" url="./my_course.html">课程</van-tabbar-item>
+    <van-tabbar-item icon="exam" url="./my_exam.html">考试</van-tabbar-item>
+    <van-tabbar-item icon="record" url="./my_record.html">学习记录</van-tabbar-item>
   </van-tabbar>
 </div>
 

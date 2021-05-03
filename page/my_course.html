@@ -64,11 +64,11 @@
                                    @change="changeClassType"></van-dropdown-item>
               </van-dropdown-menu>
             </van-col>
-            <van-col span="8" class="tabs-item" :class="courseType == 1 ? 'active': ''">
-              <span v-show="classType == 0"  @click="changeCourseType(1)">选修</span>
+            <van-col v-show="classType == 0" span="8" class="tabs-item" :class="courseType == 1 ? 'active': ''">
+              <span @click="changeCourseType(1)">选修</span>
             </van-col>
-            <van-col span="8" class="tabs-item" :class="courseType == 2 ? 'active': ''">
-              <span v-show="classType == 0"  @click="changeCourseType(2)">必修</span>
+            <van-col v-show="classType == 0" span="8" class="tabs-item" :class="courseType == 2 ? 'active': ''">
+              <span @click="changeCourseType(2)">必修</span>
             </van-col>
           </van-row>
         </div>
@@ -84,12 +84,12 @@
             <div class="list-item van-hairline--bottom"
                  v-for="(item, index) in courseList"
                  :key="index">
-              <a :href="item.url" class="item-content">
+              <!-- 线上课 -->
+              <a :href="item.url" class="item-content" v-if="classType == 0">
                 <div class="item-thumb van-hairline--surround">
                   <img :src="item.imgUrl" alt="">
                 </div>
-                <!-- 线上课 -->
-                <div class="item-info" v-if="classType == 0">
+                <div class="item-info">
                   <div class="info-title van-multi-ellipsis--l2">
                     <!-- 完成状态 -->
                     <van-tag color="#5eb6d7" v-if="item.complete == 0">已完成</van-tag>
@@ -106,22 +106,25 @@
                     <span class="type orange" v-else>必修</span>
                   </div>
                 </div>
-                <!-- 线下课 -->
-                <div class="item-info" v-if="classType == 1">
+              </a>
+              <!-- 线下课 -->
+              <div class="item-content" v-if="classType == 1">
+                <div class="item-thumb van-hairline--surround">
+                  <img :src="item.imgUrl" alt="">
+                </div>
+                <div class="item-info">
                   <div class="info-title van-multi-ellipsis--l2">
                     <!-- 完成状态 -->
-                    <van-tag color="#5eb6d7" v-if="item.complete == 0">已预约</van-tag>
+                    <van-tag color="#5eb6d7" v-if="item.complete == 1">已预约</van-tag>
                     <van-tag color="#999999" v-else>未预约</van-tag>
 
                     <span v-text="item.details">item.details</span>
                   </div>
-                  <div>
-                    <div v-if="item.complete == 0">
-                      <a @click="bookCourse" class="item-link">预约</a>
-                    </div>
+                  <div class="item-op" v-if="item.complete == 0">
+                    <a href="javascript:;" class="item-link" @click="handleBookCourse(item)">预约</a>
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
           </van-list>
         </van-pull-refresh>
@@ -150,7 +153,6 @@
         return {
           searchValue: '',
           tabbarActive: 0,
-          tabNames: ['全部课程', '选修', '必修'],
           courseType: 0,
           courseList: [], //课程
           loading: false,
@@ -169,11 +171,6 @@
         };
       },
       methods: {
-        beforeChange(index) {
-          this.courseType = index;
-          this.refreshing = true;
-          this.onRefresh();
-        },
         onLoad: function () {
           var _this = this;
           var _data = {};
@@ -235,9 +232,29 @@
           this.refreshing = true;
           this.onRefresh();
         },
-        bookCourse: function () {
+        handleBookCourse: function (item) {
+          var _this = this;
+          var _item = item;
 
-        }
+          $.ajax({
+            url: '',
+            type: 'post',
+            dataType: 'json',
+            data: { classType: _this.classType, id: _item.id},
+            success: function (response) {
+              if (response.status == 1) {
+                _this.$toast({
+                  message: response.msg,
+                  onClose: function () {
+                    _item.complete = 1;
+                  }
+                });
+              } else {
+                _this.$toast(response.msg);
+              }
+            }
+          })
+        }, // 预约线下课
       }
     });
   })

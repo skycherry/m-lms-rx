@@ -24,7 +24,14 @@ $(function() {
         natureList: [],
         columns: [],
         currentPickerType: 1,
-        pickerDefaultIndex: 0
+        pickerDefaultIndex: 0,
+
+        showModifyPopup: false,
+        modifyPasswordInfo: {
+          originalPassword: '' ,
+          newPassword: '' ,
+          newPassword2: '' ,
+        },
       };
     },
     mounted: function () {
@@ -185,7 +192,68 @@ $(function() {
           this.natureStr = value.text
         }
         this.showPicker = false;
-      }
+      },
+
+      popupModifyPassword: function () {
+        this.showModifyPopup = true;
+      },
+      clearInputError: function () {
+        $('.popup-panel').find('.js-input').removeClass('error').find('.info-error').html('');
+      },
+      closeModifyPopup: function () {
+        var _this = this;
+        for(let key  in _this.modifyPasswordInfo){
+          _this.modifyPasswordInfo[key] = '';
+        }
+        _this.clearInputError();
+      },
+      handleModifyPassword: function () {
+        var _this = this;
+        if (!_this.modifyPasswordInfo.originalPassword) {
+          $('.js-original-password').addClass('error').find('.info-error').html('请输入原密码');
+          return
+        }
+        if (!_this.modifyPasswordInfo.newPassword) {
+          $('.js-new-password').addClass('error').find('.info-error').html('请输入新密码');
+          return
+        }
+        if (!/^[\S]{6,12}$/.test(_this.modifyPasswordInfo.newPassword)) {
+          $('.js-new-password').addClass('error').find('.info-error').html('请输入正确的密码');
+          return
+        }
+        if(_this.modifyPasswordInfo.originalPassword === _this.modifyPasswordInfo.newPassword) {
+          $('.js-new-password').addClass('error').find('.info-error').html('新密码与原密码一致');
+          return;
+        }
+        if (!_this.modifyPasswordInfo.newPassword2) {
+          $('.js-new-password2').addClass('error').find('.info-error').html('请再次输入新密码');
+          return
+        }
+        if(_this.modifyPasswordInfo.newPassword !== _this.modifyPasswordInfo.newPassword2) {
+          $('.js-new-password2').addClass('error').find('.info-error').html('密码输入不一致');
+          return;
+        }
+
+        //TODO:提交
+        $.ajax({
+          url: '',
+          data:  _this.modifyPasswordInfo,
+          type: 'post',
+          dataType: 'json',
+          success: function (response) {
+            if(response.status == 1) {
+              _this.$toast({
+                message: response.msg,
+                onClose: function () {
+                  // location.href = '';
+                }
+              });
+            }else{
+              _this.$toast(response.msg);
+            }
+          }
+        })
+      }, //修改密码
     }
   });
 })

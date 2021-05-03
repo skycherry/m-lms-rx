@@ -400,6 +400,21 @@ html, body{
     text-align: center;
     line-height: 18px;
   }
+  .item-op{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  .item-link{
+    line-height: 24px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    background-color: @blue;
+  }
 }
 
 .wow-teacher-list{
@@ -666,6 +681,10 @@ html, body{
   min-height: 200px;
   background-color: @grayF0;
   padding: 30px 48px 15px;
+  .title{
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
   .info-field{
     display: flex;
     &.error{
@@ -712,6 +731,12 @@ html, body{
     border-radius: 30px;
     padding: 0 15px;
     box-sizing: border-box;
+    &::-webkit-input-placeholder {
+      color: @grayB2;
+    }
+    &::-moz-placeholder {
+      color: @grayB2;
+    }
   }
   .info-error{
     color: @red;

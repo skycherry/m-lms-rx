@@ -28,7 +28,7 @@
       },
       {
         "id": 1,
-        "complete": 1,
+        "complete": 2,
         "url": "./course_details.html?courseId=201",
         "imgUrl": "../dist/images/c_pic.jpg",
         "details": "30课时外教真人1对1在线视频课程",
