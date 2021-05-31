@@ -85,7 +85,7 @@
                  v-for="(item, index) in courseList"
                  :key="index">
               <!-- 线上课 -->
-              <a :href="item.url" class="item-content" v-if="classType == 0">
+              <a :href="(item.complete == 0 || item.complete == 1) ? item.url : 'javascript:;'" class="item-content" v-if="classType == 0">
                 <div class="item-thumb van-hairline--surround">
                   <img :src="item.imgUrl" alt="">
                 </div>
@@ -108,23 +108,37 @@
                 </div>
               </a>
               <!-- 线下课 -->
-              <div class="item-content" v-if="classType == 1">
-                <div class="item-thumb van-hairline--surround">
-                  <img :src="item.imgUrl" alt="">
-                </div>
-                <div class="item-info">
-                  <div class="info-title van-multi-ellipsis--l2">
-                    <!-- 完成状态 -->
-                    <van-tag color="#5eb6d7" v-if="item.complete == 1">已预约</van-tag>
-                    <van-tag color="#999999" v-else>未预约</van-tag>
+              <div class="offline-content" v-if="classType == 1">
+                <div class="oc-title van-ellipsis">
+                  <van-tag color="#5eb6d7" v-if="item.complete == 1">已预约</van-tag>
+                  <van-tag color="#d7b15e" v-else>未预约</van-tag>
 
-                    <span v-text="item.details">item.details</span>
-                  </div>
-                  <div class="item-op" v-if="item.complete == 0">
-                    <a href="javascript:;" class="item-link" @click="handleBookCourse(item)">预约</a>
-                  </div>
+                  <span v-text="item.details"></span>
+                </div>
+                <div class="oc-time van-ellipsis">时间：2021-04-20 16:04 至 2021-05-01 16:04</div>
+                <div class="oc-position van-ellipsis">地点：东方广场E3座1154E3座1154E3座</div>
+                <div class="oc-op align-right">
+                  <a href="javascript:;" class="oc-link" v-if="item.complete == 0" @click="handleBookCourse(item)">预约</a>
+                  <a href="javascript:;" class="oc-link disabled" v-if="item.complete == 1">已预约</a>
                 </div>
               </div>
+
+<!--              <div class="item-content" v-if="classType == 1">-->
+<!--                <div class="item-thumb van-hairline&#45;&#45;surround">-->
+<!--                  <img :src="item.imgUrl" alt="">-->
+<!--                </div>-->
+<!--                <div class="item-info">-->
+<!--                  <div class="info-title van-multi-ellipsis&#45;&#45;l2">-->
+<!--                    <van-tag color="#5eb6d7" v-if="item.complete == 1">已预约</van-tag>-->
+<!--                    <van-tag color="#999999" v-else>未预约</van-tag>-->
+
+<!--                    <span v-text="item.details">item.details</span>-->
+<!--                  </div>-->
+<!--                  <div class="item-op" v-if="item.complete == 0">-->
+<!--                    <a href="javascript:;" class="item-link" @click="handleBookCourse(item)">预约</a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
             </div>
           </van-list>
         </van-pull-refresh>

@@ -1,4 +1,9 @@
 $(function() {
+  Vue.use(vant.Lazyload, {
+    lazyComponent: true,
+    loading: '../dist/images/load.gif'
+  });
+
   var courseDetails = new Vue({
     el: '#courseDetails',
     data: function () {
@@ -11,6 +16,10 @@ $(function() {
         activeUnitVideoCurrentTime: 0,
         chapterList: [],
         courseInfo: {},
+        imageList: [
+          'https://img01.yzcdn.cn/vant/apple-1.jpg',
+          'https://img01.yzcdn.cn/vant/apple-2.jpg',
+        ],
       };
     },
     created: function () {
@@ -83,6 +92,9 @@ $(function() {
                   // 存在video 初始化
                   if ($('#wow-video').length) {
                     _this.initVideo()
+                  }
+                  if ($('#wow-audio').length) {
+                    _this.initAudio()
                   }
                 })
               }
@@ -172,8 +184,7 @@ $(function() {
           e.preventDefault();
           window.vant.ImagePreview({
             images: [unit.unitFileUrl],
-            closeable: true,
-            showIndex: false
+            closeable: true
           });
         }
         if (unit.unitType !== 0 && unit.unitType !== 1) {
@@ -189,8 +200,22 @@ $(function() {
             }
           })
         }
-        alert(111111)
       }, // 图片和pdf时点击计算学习结果
+      initAudio: function () {
+        $('#wow-audio').audioPlayer({
+          classPrefix: 'audioplayer',
+          strPlay: 'Play',
+          strPause: 'Pause',
+          strVolume: 'Volume',
+        });
+      }, // 初始化audio
+      showSwipe: function (image) {
+        window.vant.ImagePreview({
+          images: [image],
+          closeable: true,
+          showIndex: false
+        });
+      },
     }
   });
 })

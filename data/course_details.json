@@ -14,8 +14,12 @@
             "unitCoverImg": "../dist/images/c_pic.jpg",
             "unitVideoUrl": "../wayne.mp4",
             "unitVideoCurrentTime": 0,
-            "unitType": 1,
-            "unitCompleted": 0
+            "unitType": 2,
+            "unitCompleted": 0,
+            "unitFileUrl": [
+              "https://t7.baidu.com/it/u=1595072465,3644073269&fm=193&f=GIF",
+              "https://t7.baidu.com/it/u=963301259,1982396977&fm=193&f=GIF"
+            ]
           },
           {
             "unitId": 102,

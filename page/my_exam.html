@@ -1,99 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title>woskill</title>
-  <!-- Path to Library CSS-->
-  <link rel="stylesheet" href="../dist/lib/vant/index.css">
-  <!-- Path to Library CSS-->
-  <link rel="stylesheet" href="../dist/css/main.css">
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>woskill</title>
+    <!-- Path to Library CSS-->
+    <link rel="stylesheet" href="../dist/lib/vant/index.css">
+    <!-- Path to Library CSS-->
+    <link rel="stylesheet" href="../dist/css/main.css">
 </head>
 <body>
 <div class="views" id="myExamPage" v-cloak>
-  <!-- 顶部导航 -->
-  <div class="wow-navbar">
-    <a href="./index.html" class="logo" v-show="!showSearch"><img src="../dist/images/logo.png" alt=""></a>
-    <div class="navbar-search-btn" @click="handleSearchBtnClick" v-show="!showSearch">搜索课程关键词</div>
-    <div class="navbar-search" v-show="showSearch">
-      <!--show-action-->
-      <form action="/">
-        <van-search
-                ref="search"
-                v-model="searchValue"
-                placeholder="请输入搜索课程"
-                show-action
-                @search="handleSearch"
-                @cancel="handleSearchCancel"
-        ></van-search>
-      </form>
+    <!-- 顶部导航 -->
+    <div class="wow-navbar">
+        <a href="./index.html" class="logo" v-show="!showSearch"><img src="../dist/images/logo.png" alt=""></a>
+        <div class="navbar-search-btn" @click="handleSearchBtnClick" v-show="!showSearch">搜索课程关键词</div>
+        <div class="navbar-search" v-show="showSearch">
+            <!--show-action-->
+            <form action="/">
+                <van-search
+                    ref="search"
+                    v-model="searchValue"
+                    placeholder="请输入搜索课程"
+                    show-action
+                    @search="handleSearch"
+                    @cancel="handleSearchCancel"
+                ></van-search>
+            </form>
+        </div>
     </div>
-  </div>
-  <!-- 搜索页面 -->
-  <div class="wow-search-page" v-show="showSearch">
-    <div class="search-hot-box">
-      <div class="title">热门搜索</div>
-      <ul class="search-hot-list">
-        <li v-for="(item, index) in hostCourseList"
-            :key="index">
-          <a :href="item.url" v-text="item.courseName"></a>
-        </li>
-      </ul>
+    <!-- 搜索页面 -->
+    <div class="wow-search-page" v-show="showSearch">
+        <div class="search-hot-box">
+            <div class="title">热门搜索</div>
+            <ul class="search-hot-list">
+                <li v-for="(item, index) in hostCourseList"
+                    :key="index">
+                    <a :href="item.url" v-text="item.courseName"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="search-sort">
+            <a href="./course_sort.html"
+               class="van-button van-button--info van-button--round van-button--plain van-button--block btn-sort"
+            >查看课程分类</a>
+        </div>
     </div>
-    <div class="search-sort">
-      <a href="./course_sort.html"
-         class="van-button van-button--info van-button--round van-button--plain van-button--block btn-sort"
-      >查看课程分类</a>
-    </div>
-  </div>
-  <!-- 正文内容 -->
-  <div class="page">
-    <div class="page-content">
-      <section class="course-search-page">
-        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-          <van-list
-                  class="wow-exam-list"
-                  v-model="loading"
-                  :finished="finished"
-                  :finished-text="examList.length ? '没有更多了' : '暂无考试信息'"
-                  @load="onLoad">
-            <div class="list-item van-hairline--bottom"
-                 v-for="(item, index) in examList"
-                 :key="index">
-              <div class="item-content">
-                <div class="item-title van-ellipsis">
-                  <van-tag color="#5eb6d7" v-if="item.complete == 0">已完成</van-tag>
-                  <van-tag color="#d7b15e" v-else-if="item.complete == 1">未完成</van-tag>
-                  <van-tag color="#999999" v-else>过期</van-tag>
-                  <span>{{ item.courseTitle }}</span>
+    <!-- 正文内容 -->
+    <div class="page">
+        <div class="page-content">
+            <!-- 下来菜单 -->
+            <van-sticky class="course-search-sticky">
+                <div class="course-search-tabs van-hairline--bottom">
+                    <van-row>
+                        <van-col span="8" class="tabs-item active">
+                            <van-dropdown-menu active-color="#667ce3">
+                                <van-dropdown-item v-model="examType"
+                                                   :options="examTypeList"
+                                                   @change="changeExamType"></van-dropdown-item>
+                            </van-dropdown-menu>
+                        </van-col>
+                        <van-col v-show="false"></van-col>
+                    </van-row>
                 </div>
-                <div class="item-name van-ellipsis">【试卷】{{ item.examName }} </div>
-                <van-row class="item-info" gutter="10">
-                  <van-col span="12">
-                    <div class="info van-ellipsis">提交时间：{{ item.dateTime }}</div>
-                  </van-col>
-                  <van-col span="12">
-                    <div class="info van-ellipsis">批改时间：{{ item.correctTime }}</div>
-                  </van-col>
-                </van-row>
-                <div class="item-mark">{{ item.mark }}分</div>
-                <a :href="item.url" class="item-link">查看</a>
-              </div>
-            </div>
-          </van-list>
-        </van-pull-refresh>
-      </section>
+            </van-sticky>
+            <section class="course-search-page">
+                <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                    <van-list
+                        class="wow-exam-list"
+                        v-model="loading"
+                        :finished="finished"
+                        :finished-text="examList.length ? '没有更多了' : '暂无考试信息'"
+                        @load="onLoad">
+                        <div class="list-item van-hairline--bottom"
+                             v-for="(item, index) in examList"
+                             :key="index">
+                            <div class="item-content">
+                                <div class="item-title van-ellipsis">
+                                    <van-tag color="#5eb6d7" v-if="item.complete == 0">已完成</van-tag>
+                                    <van-tag color="#d7b15e" v-else-if="item.complete == 1">未完成</van-tag>
+                                    <van-tag color="#999999" v-else>过期</van-tag>
+                                    <span>{{ item.courseTitle }}</span>
+                                </div>
+                                <div class="item-name van-ellipsis">【试卷】{{ item.examName }} </div>
+                                <van-row class="item-info" gutter="10">
+                                    <van-col span="12">
+                                        <div class="info van-ellipsis">提交时间：{{ item.dateTime }}</div>
+                                    </van-col>
+                                    <van-col span="12">
+                                        <div class="info van-ellipsis">批改时间：{{ item.correctTime }}</div>
+                                    </van-col>
+                                </van-row>
+                                <div class="item-mark">{{ item.mark }}分</div>
+                                <a :href="item.url" class="item-link">查看</a>
+                            </div>
+                        </div>
+                    </van-list>
+                </van-pull-refresh>
+            </section>
+        </div>
     </div>
-  </div>
-  <!-- 底部导航 -->
-  <van-tabbar v-model="tabbarActive" class="wow-tabbar">
-    <van-tabbar-item name="course" icon="course" url="./my_course.html">课程</van-tabbar-item>
-    <van-tabbar-item name="exam" icon="exam" url="./my_exam.html">考试</van-tabbar-item>
-    <van-tabbar-item name="record" icon="record" url="./my_record.html">学习记录</van-tabbar-item>
-  </van-tabbar>
+    <!-- 底部导航 -->
+    <van-tabbar v-model="tabbarActive" class="wow-tabbar">
+        <van-tabbar-item name="course" icon="course" url="./my_course.html">课程</van-tabbar-item>
+        <van-tabbar-item name="exam" icon="exam" url="./my_exam.html">考试</van-tabbar-item>
+        <van-tabbar-item name="record" icon="record" url="./my_record.html">学习记录</van-tabbar-item>
+    </van-tabbar>
 </div>
 <!-- Path to Library JS-->
 <script src="../dist/lib/zepto.min.js"></script>
@@ -102,71 +117,82 @@
 <!-- Path to Library JS-->
 <script src="../dist/js/common.js"></script>
 <script>
-  $(function() {
-    var myExamPage = new Vue({
-      el: '#myExamPage',
-      mixins: [searchMixin],
-      data: function () {
-        return {
-          searchValue: '',
-          tabbarActive: 'course',
-          examList: [],
-          loading: false,
-          finished: false,
-          refreshing: false,
-          pageInfo: {
-            total:0,
-            pageSize: 10,
-            pageNo: 1
-          },
-        };
-      },
-      methods: {
-        onLoad: function () {
-          var _this = this;
-          //刷新执行
-          if (_this.refreshing) {
-            _this.pageInfo.pageNo = 1;
-            _this.examList = [];
-            _this.refreshing = false;
-          }
-          //加载数据
-          $.ajax({
-            url: '../data/my_exam.json',
-            type: 'post',
-            dataType: 'json',
-            data: {
-              pageNo: _this.pageInfo.pageNo
+    $(function() {
+        var myExamPage = new Vue({
+            el: '#myExamPage',
+            mixins: [searchMixin],
+            data: function () {
+                return {
+                    searchValue: '',
+                    tabbarActive: 'exam',
+                    examList: [],
+                    loading: false,
+                    finished: false,
+                    refreshing: false,
+                    pageInfo: {
+                        total:0,
+                        pageSize: 10,
+                        pageNo: 1
+                    },
+                    examType: 0,
+                    examTypeList: [
+                        { text: '线上课', value: 0 },
+                        { text: '线下课', value: 1 }
+                    ],
+                };
             },
-            success: function (response) {
-              if (response.status == 1) {
-                if (Array.isArray(response.data.list)) {
-                  response.data.list.forEach(function (item) {
-                    _this.examList.push(item)
-                  })
+            methods: {
+                onLoad: function () {
+                    var _this = this;
+                    //刷新执行
+                    if (_this.refreshing) {
+                        _this.pageInfo.pageNo = 1;
+                        _this.examList = [];
+                        _this.refreshing = false;
+                    }
+                    //加载数据
+                    $.ajax({
+                        url: '../data/my_exam.json',
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            examType: _this.examType,
+                            pageNo: _this.pageInfo.pageNo
+                        },
+                        success: function (response) {
+                            if (response.status == 1) {
+                                if (Array.isArray(response.data.list)) {
+                                    response.data.list.forEach(function (item) {
+                                        _this.examList.push(item)
+                                    })
+                                }
+                                if (_this.examList.length >= response.data.pageInfo.total) {
+                                    _this.finished = true;
+                                }
+                                _this.pageInfo.pageNo ++;
+                            }
+                        },
+                        complete: function () {
+                            _this.loading = false;
+                        }
+                    })
+                },
+                onRefresh: function () {
+                    // 清空列表数据
+                    this.finished = false;
+                    // 重新加载数据
+                    // 将 loading 设置为 true，表示处于加载状态
+                    this.loading = true;
+                    this.onLoad();
+                },
+                changeExamType:function (value) {
+                    this.examType = value;
+                    this.refreshing = true;
+                    this.onRefresh();
                 }
-                if (_this.examList.length >= response.data.pageInfo.total) {
-                  _this.finished = true;
-                }
-                _this.pageInfo.pageNo ++;
-              }
-            },
-            complete: function () {
-              _this.loading = false;
             }
-          })
-        },
-        onRefresh: function () {
-          // 清空列表数据
-          this.finished = false;
-          // 重新加载数据
-          // 将 loading 设置为 true，表示处于加载状态
-          this.loading = true;
-          this.onLoad();
-        }
-      }
-    });
-  })
+        });
+    })
 </script>
 </body>
 </html>
