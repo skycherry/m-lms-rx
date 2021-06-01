@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>woskill</title>
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/lib/vant/index.css">
+  <!-- Path to Library CSS-->
+  <link rel="stylesheet" href="../dist/css/main.css">
+</head>
+<body>
+<div class="views" id="testPage" v-cloak>
+  <!-- 正文内容 -->
+  <div class="page page-test">
+    <div class="page-content">
+        <section class="timing-modular">
+            <div class="bg">
+                <div class="info">
+                   <div class="inner">
+                       <div class="title">Elearning试卷测试</div>
+                       <div class="time">倒计时：08：59</div>
+                   </div>
+                </div>
+            </div>
+        </section>
+        <section class="question-modular">
+            <div class="question-item">
+                <div class="question-title"><span>单选题</span>（共<em>1</em>题，共<em>5</em>分）</div>
+                <div class="question-card">
+                    <div class="card-header van-hairline--bottom">
+                        <strong class="title">1.销售考试testing销售考试testing销售考试testing</strong>
+                        <span class="mark">5.00分</span>
+                    </div>
+                    <div class="card-body">
+                        <van-radio-group v-model="radio">
+                            <van-radio name="1">A.答案1设计解决</van-radio>
+                            <van-radio name="2">B.答案1设计</van-radio>
+                            <van-radio name="3">C.桂冠</van-radio>
+                            <van-radio name="4">D.什么东西</van-radio>
+                        </van-radio-group>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+  </div>
+</div>
+
+<!-- Path to Library JS-->
+<script src="../dist/lib/zepto.min.js"></script>
+<script src="../dist/lib/vue.min.js"></script>
+<script src="../dist/lib/vant/vant.min.js"></script>
+<!-- Path to Library JS-->
+<script src="../dist/js/test.js"></script>
+</body>
+</html>

@@ -1489,6 +1489,112 @@ html, body{
   }
 }
 
+// 试卷测试
+.page-test {
+    .page-content{
+        padding-top: 0;
+    }
+}
+
+.timing-modular{
+    padding: 15px 20px 18px;
+    position: relative;
+    .bg{
+        width: 100%;
+        height: auto;
+        background-image: url("../images/test_bg1.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding-top: 27.3%;
+        position: relative;
+    }
+    .info{
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        box-sizing: border-box;
+        padding: 0 6% 5% 0;
+        color: @white;
+        font-weight: bold;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .title{
+        font-size: 20px;
+    }
+    .time{
+        font-size: 14px;
+    }
+}
+.question-modular{
+    padding: 0 20px;
+    color: #38393f;
+    em{
+        font-style: normal;
+    }
+    .question-title{
+        font-size: 13px;
+        margin-bottom: 10px;
+        position: relative;
+        padding: 0 22px;
+        &:before{
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            content: "";
+            background-image: url("../images/test_icon1.png");
+            background-repeat: no-repeat;
+            background-size: 100%;
+            position: absolute;
+            left: 4px;
+            bottom: 5px;
+        }
+        span{
+            font-size: 17px;
+        }
+    }
+    .question-card{
+        border-radius: 20px;
+        border: 1px solid #e5e5e5;
+        padding: 0 3px;
+    }
+    .card-header{
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 16px 10px;
+        &:after{
+            border-color: #e5e5e5;
+        }
+        .title{
+            line-height: 20px;
+            font-size: 15px;
+        }
+        .mark{
+            height: 16px;
+            line-height: 16px;
+            border-radius: 5px;
+            color: #30d1d2;
+            background-color: #bef2e7;
+            font-size: 11px;
+            padding: 0 3px;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //-----------van
 .van-picker__cancel, .van-picker__confirm{
   color: @blue;
