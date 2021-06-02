@@ -1,0 +1,68 @@
+{
+    "status": 1,
+    "msg": "成功",
+    "data": [
+        {
+            "id": "1000",
+            "question_type": "1",
+            "question_num": "2",
+            "question_score": "10",
+            "question_list": [
+                {
+                    "id": 1001,
+                    "question_name": "测试测试测试11111",
+                    "question_score": "5",
+                    "answer_list": [
+                        {
+                            "id": "answer_1001_a",
+                            "flag": "A",
+                            "content": "测试1 a"
+                        },
+                        {
+                            "id": "answer_1001_b",
+                            "flag": "B",
+                            "content": "答案1设计"
+                        },
+                        {
+                            "id": "answer_1001_c",
+                            "flag": "C",
+                            "content": "桂冠"
+                        },
+                        {
+                            "id": "answer_1001_d",
+                            "flag": "D",
+                            "content": "什么东西"
+                        }
+                    ]
+                },
+                {
+                    "id": 1002,
+                    "question_name": "测试测试测试22222",
+                    "question_score": "5",
+                    "answer_list": [
+                        {
+                            "id": "answer_1002_a",
+                            "flag": "A",
+                            "content": "测试2 a"
+                        },
+                        {
+                            "id": "answer_1002_b",
+                            "flag": "B",
+                            "content": "测试2 b"
+                        },
+                        {
+                            "id": "answer_1002_c",
+                            "flag": "C",
+                            "content": "测试2 c"
+                        },
+                        {
+                            "id": "answer_1002_d",
+                            "flag": "D",
+                            "content": "测试2 d"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

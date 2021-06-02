@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>woskill</title>
+    <!-- Path to Library CSS-->
+    <link rel="stylesheet" href="../dist/lib/vant/index.css">
+    <!-- Path to Library CSS-->
+    <link rel="stylesheet" href="../dist/css/main.css">
+</head>
+<body>
+<div class="views" id="surveyPage" v-cloak>
+    <!-- 正文内容 -->
+    <div class="page page-survey">
+        <div class="page-content">
+            <section class="question-survey-modular">
+                <div class="bg">
+                    <div class="info">
+                        <em class="icon"></em>
+                        <span>Elearning问卷</span>
+                    </div>
+                </div>
+            </section>
+            <!-- 问题区域 -->
+            <section class="question-modular">
+                <div class="question-type">
+                    <div class="question-title"><span>1.问卷调差支持创建那些项目？（多选）</span></div>
+                    <div class="question-card">
+                        <div class="card-body">
+                            <van-checkbox-group v-model="result" class="my-checkbox">
+                                <van-checkbox name="a" shape="square">A.答案1设计解决</van-checkbox>
+                                <van-checkbox name="b" shape="square">B.答案1设计</van-checkbox>
+                                <van-checkbox name="c" shape="square">C.桂冠</van-checkbox>
+                                <van-checkbox name="d" shape="square">D.什么东西</van-checkbox>
+                            </van-checkbox-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="question-type">
+                    <div class="question-title"><span>2.你是建那些项目？（单选）</span></div>
+                    <div class="question-card">
+                        <div class="card-body">
+                            <van-radio-group v-model="radio" class="my-radio">
+                                <van-radio name="1">A.答案1设计解决答案1设计解决答案1设计解决答案1设计解决</van-radio>
+                                <van-radio name="2">B.答案1设计</van-radio>
+                                <van-radio name="3">C.桂冠</van-radio>
+                                <van-radio name="4">D.什么东西</van-radio>
+                            </van-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="question-type">
+                    <div class="question-title"><span>3.请为使用体验打分？</span></div>
+                    <div class="question-mark">
+                        <div class="mark-item">
+                            <div class="item-title">网站导航</div>
+                            <div class="item-mark">
+                                <van-rate v-model="value" color="#667ec3" void-icon="star" void-color="#e3e3e3"></van-rate>
+                            </div>
+                        </div>
+                        <div class="mark-item">
+                            <div class="item-title">网站导航</div>
+                            <div class="item-mark">
+                                <van-rate v-model="value" color="#667ec3" void-icon="star" void-color="#e3e3e3"></van-rate>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="question-type">
+                    <div class="question-title"><span>4.若您对有意见与建议，欢迎填写在以下输入框中</span></div>
+                    <div class="question-card">
+                        <div class="card-body">
+                            <div class="card-textarea">
+                                <textarea class="my-textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <van-tabbar class="test-tabbar van-hairline--top">
+        <van-button round block color="#667ec3">提交</van-button>
+    </van-tabbar>
+</div>
+
+<!-- Path to Library JS-->
+<script src="../dist/lib/zepto.min.js"></script>
+<script src="../dist/lib/vue.min.js"></script>
+<script src="../dist/lib/vant/vant.min.js"></script>
+<!-- Path to Library JS-->
+<script>
+    $(function() {
+        var testPage = new Vue({
+            el: '#surveyPage',
+            data: function () {
+                return {
+                    radio: '1',
+                    checked: true,
+                    result: ['a'],
+                    username: '',
+                    value: 3,
+                }
+            },
+            mounted: function () {
+            },
+            methods: {
+
+            }
+        });
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>woskill</title>
+    <!-- Path to Library CSS-->
+    <link rel="stylesheet" href="../dist/lib/vant/index.css">
+    <!-- Path to Library CSS-->
+    <link rel="stylesheet" href="../dist/css/main.css">
+</head>
+<body>
+<div class="views" id="testPage" v-cloak>
+    <!-- 正文内容 -->
+    <div class="page page-test">
+        <div class="page-content">
+            <!-- 测试中 -->
+            <section class="question-timing-modular">
+                <div class="bg">
+                    <div class="info">
+                        <div class="inner">
+                            <div class="title">Elearning试卷测试</div>
+                            <div class="time">倒计时：<van-count-down :time="time" format="mm:ss" @finish="timeFinished"></van-count-down></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- 完成测试 -->
+            <section class="question-result-modular" style="display: none">
+                <div class="qr-bg">
+                    <div class="qr-info">
+                        <div class="qri-l">
+                            <div class="qri-l-icon"></div>
+                            <div class="qri-l-info">
+                                <h3>Elearning</h3>
+                                <strong>试卷测试</strong>
+                            </div>
+                        </div>
+                        <div class="qri-r">
+                            <p class="van-ellipsis">答题人：George.cheng</p>
+                            <p>总分：19分</p>
+                            <p><strong>得分：10分</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="qr-date">
+                    <span>交卷时间：2021-05-20 13:30</span>
+                    <span>用时：10分钟</span>
+                </div>
+                <div class="qr-detail">
+                    <div class="qrd-table">
+                        <van-row class="qrd-hd">
+                            <van-col span="6">单选题</van-col>
+                            <van-col span="6">多选题 </van-col>
+                            <van-col span="6">判断题</van-col>
+                            <van-col span="6">填空题</van-col>
+                        </van-row>
+                        <van-row class="qrd-bd">
+                            <van-col span="6">10分</van-col>
+                            <van-col span="6">8分</van-col>
+                            <van-col span="6">6分</van-col>
+                            <van-col span="6">2分</van-col>
+                        </van-row>
+                    </div>
+                </div>
+            </section>
+            <!-- 问题区域 -->
+            <section class="question-modular">
+                <!-- 1 选择、 2 多选、 3 判断、 4 填空 -->
+                <div class="question-type">
+                    <div class="question-title"><span>单选题</span>（共<em>1</em>题，共<em>5</em>分）</div>
+                    <div class="question-item">
+                        <div class="question-card">
+                            <div class="card-header van-hairline--bottom">
+                                <div class="l">
+                                    <strong class="title">1.销售考试testing</strong>
+                                </div>
+                                <div class="r">
+                                    <span class="mark">5.00分</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <van-radio-group v-model="radio" class="my-radio">
+                                    <van-radio name="1">A.答案1设计解决答案1设计解决答案1设计解决答案1设计解决</van-radio>
+                                    <van-radio name="2">B.答案1设计</van-radio>
+                                    <van-radio name="3">C.桂冠</van-radio>
+                                    <van-radio name="4">D.什么东西</van-radio>
+                                </van-radio-group>
+                            </div>
+                        </div>
+                        <div class="question-result">正确答案是<span class="color-green">C</span>，你的答案是<span class="color-red">B</span>，你答错了</div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-card">
+                            <div class="card-header van-hairline--bottom">
+                                <div class="l">
+                                    <strong class="title">1.销售考试testing</strong>
+                                </div>
+                                <div class="r">
+                                    <span class="mark">5.00分</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <van-radio-group v-model="radio" class="my-radio">
+                                    <van-radio name="1">A.答案1设计解决答案1设计解决答案1设计解决答案1设计解决</van-radio>
+                                    <van-radio name="2">B.答案1设计</van-radio>
+                                    <van-radio name="3">C.桂冠</van-radio>
+                                    <van-radio name="4">D.什么东西</van-radio>
+                                </van-radio-group>
+                            </div>
+                        </div>
+                        <div class="question-result">正确答案是<span class="color-green">C</span>，你的答案是<span class="color-red">B</span>，你答错了</div>
+                    </div>
+                </div>
+                <div class="question-type">
+                    <div class="question-title"><span>判断题</span>（共<em>1</em>题，共<em>4</em>分）</div>
+                    <div class="question-item">
+                        <div class="question-card">
+                            <div class="card-header van-hairline--bottom">
+                                <div class="l">
+                                    <strong class="title">1.销售考试testing</strong>
+                                </div>
+                                <div class="r">
+                                    <span class="mark">5.00分</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <van-radio-group v-model="radio" class="my-radio">
+                                    <van-radio name="1">A.正确</van-radio>
+                                    <van-radio name="2">B.错误</van-radio>
+                                </van-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="question-type">
+                    <div class="question-title"><span>多选题</span>（共<em>1</em>题，共<em>5</em>分）</div>
+                    <div class="question-item">
+                        <div class="question-card">
+                            <div class="card-header van-hairline--bottom">
+                                <div class="l">
+                                    <strong class="title">1.销售考试test知否知否应是绿肥红瘦ing？</strong>
+                                </div>
+                                <div class="r">
+                                    <span class="mark">5.00分</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <van-checkbox-group v-model="result" class="my-checkbox">
+                                    <van-checkbox name="a" shape="square">A.答案1设计解决</van-checkbox>
+                                    <van-checkbox name="b" shape="square">B.答案1设计</van-checkbox>
+                                    <van-checkbox name="c" shape="square">C.桂冠</van-checkbox>
+                                    <van-checkbox name="d" shape="square">D.什么东西</van-checkbox>
+                                </van-checkbox-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="question-type">
+                    <div class="question-title"><span>填空题</span>（共<em>1</em>题，共<em>5</em>分）</div>
+                    <div class="question-item">
+                        <div class="question-card">
+                            <div class="card-header van-hairline--bottom">
+                                <div class="fill-title">销售考试te<span class="blanks">1</span>st知否知否应是绿肥红瘦ing.</div>
+                            </div>
+                            <div class="card-body fill-card">
+                                <van-cell-group class="my-field">
+                                    <van-field v-model="username" label="1."></van-field>
+                                </van-cell-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <van-tabbar class="test-tabbar van-hairline--top" style="display: none">
+        <van-button round block color="#667ec3">提交</van-button>
+    </van-tabbar>
+</div>
+<!-- Path to Library JS-->
+<script src="../dist/lib/zepto.min.js"></script>
+<script src="../dist/lib/vue.min.js"></script>
+<script src="../dist/lib/vant/vant.min.js"></script>
+<!-- Path to Library JS-->
+<!--<script src="../dist/js/test.js"></script>-->
+<script>
+    $(function() {
+        var testPage = new Vue({
+            el: '#testPage',
+            data: function () {
+                return {
+                    radio: '1',
+                    checked: true,
+                    result: ['a'],
+                    username: '',
+                    time: 5*1000
+                }
+            },
+            mounted: function () {
+            },
+            methods: {
+                getPaperInfo: function () {
+                    let _this = this;
+                    $.ajax({
+                        url: '../../data/test/paper.json',
+                        type: 'post',
+                        data: {},
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.status == 1) {
+                                console.log(response)
+
+                            } else {
+
+                            }
+                        }
+                    })
+                },
+                timeFinished: function () {
+                    var that = this;
+                    that.$toast({
+                        type: "fail",
+                        message: "答题时间到",
+                        onClose: function () {
+                            //location.reload();
+                        }
+                    });
+                }
+            }
+        });
+    })
+
+</script>
+</body>
+</html>
