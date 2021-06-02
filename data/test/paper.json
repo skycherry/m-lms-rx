@@ -1,68 +1,200 @@
 {
     "status": 1,
     "msg": "成功",
-    "data": [
-        {
-            "id": "1000",
-            "question_type": "1",
-            "question_num": "2",
-            "question_score": "10",
-            "question_list": [
-                {
-                    "id": 1001,
-                    "question_name": "测试测试测试11111",
-                    "question_score": "5",
-                    "answer_list": [
+    "data": {
+        "paperName": "Elearning试卷测试",
+        "totalTime": 20000,
+        "isAnswer": 0,
+        "userName": "Carly.He",
+        "totalScore": 100,
+        "getScore": 50,
+        "singleScore": 10,
+        "multipleScore": 8,
+        "judgeScore": 6,
+        "fillScore": 2,
+        "dateTime": "2021-05-20 13:30",
+        "takenTime": 8,
+        "questions": [
+            {
+                "id": 1000,
+                "question_type": 1,
+                "question_type_name": "单选题",
+                "question_num": 2,
+                "question_score": 10,
+                "question_list": [
+                    {
+                        "id": 1001,
+                        "question_name": "测试单选11111",
+                        "question_score": "5",
+                        "answer_list": [
+                            {
+                                "flag": "A",
+                                "value": "1",
+                                "content": "测试1 a"
+                            },
+                            {
+                                "flag": "B",
+                                "value": "2",
+                                "content": "答案1设计"
+                            },
+                            {
+                                "flag": "C",
+                                "value": "3",
+                                "content": "桂冠"
+                            },
+                            {
+                                "flag": "D",
+                                "value": "4",
+                                "content": "什么东西"
+                            }
+                        ],
+                        "correct": 1,
+                        "user_answer": "2",
+                        "right_answer": "2"
+                    },
                         {
-                            "id": "answer_1001_a",
-                            "flag": "A",
-                            "content": "测试1 a"
-                        },
-                        {
-                            "id": "answer_1001_b",
-                            "flag": "B",
-                            "content": "答案1设计"
-                        },
-                        {
-                            "id": "answer_1001_c",
-                            "flag": "C",
-                            "content": "桂冠"
-                        },
-                        {
-                            "id": "answer_1001_d",
-                            "flag": "D",
-                            "content": "什么东西"
-                        }
-                    ]
-                },
-                {
-                    "id": 1002,
-                    "question_name": "测试测试测试22222",
-                    "question_score": "5",
-                    "answer_list": [
-                        {
-                            "id": "answer_1002_a",
-                            "flag": "A",
-                            "content": "测试2 a"
-                        },
-                        {
-                            "id": "answer_1002_b",
-                            "flag": "B",
-                            "content": "测试2 b"
-                        },
-                        {
-                            "id": "answer_1002_c",
-                            "flag": "C",
-                            "content": "测试2 c"
-                        },
-                        {
-                            "id": "answer_1002_d",
-                            "flag": "D",
-                            "content": "测试2 d"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+                        "id": 1002,
+                        "question_name": "测试单选22222",
+                        "question_score": "5",
+                        "answer_list": [
+                            {
+                                "flag": "A",
+                                "value": "1",
+                                "content": "测试2 a"
+                            },
+                            {
+                                "flag": "B",
+                                "value": "2",
+                                "content": "测试2 b"
+                            },
+                            {
+                                "flag": "C",
+                                "value": "3",
+                                "content": "测试2 c"
+                            },
+                            {
+                                "flag": "D",
+                                "value": "4",
+                                "content": "测试2 d"
+                            }
+                        ],
+                        "correct": 0,
+                        "user_answer": "2",
+                        "right_answer": "3"
+                    }
+                ]
+            },
+            {
+                "id": 2000,
+                "question_type": 2,
+                "question_type_name": "多选题",
+                "question_num": 1,
+                "question_score": 5,
+                "question_list": [
+                    {
+                        "id": 2001,
+                        "question_name": "测试多选11111",
+                        "question_score": "5",
+                        "answer_list": [
+                            {
+                                "flag": "A",
+                                "value": "1",
+                                "content": "测试1 a"
+                            },
+                            {
+                                "flag": "B",
+                                "value": "2",
+                                "content": "答案1设计"
+                            },
+                            {
+                                "flag": "C",
+                                "value": "3",
+                                "content": "桂冠"
+                            },
+                            {
+                                "flag": "D",
+                                "value": "4",
+                                "content": "什么东西"
+                            }
+                        ],
+                        "correct": 1,
+                        "user_answer": ["1","2"],
+                        "right_answer": ["2","3"]
+                    }
+                ]
+            },
+            {
+                "id": 3000,
+                "question_type": 3,
+                "question_type_name": "判断",
+                "question_num": 1,
+                "question_score": 4,
+                "question_list": [
+                    {
+                        "id": 3001,
+                        "question_name": "测试判断11111",
+                        "question_score": "4",
+                        "answer_list": [
+                            {
+                                "flag": "A",
+                                "value": "1",
+                                "content": "正确"
+                            },
+                            {
+                                "flag": "B",
+                                "value": "2",
+                                "content": "错误"
+                            }
+                        ],
+                        "correct": 0,
+                        "user_answer": "1",
+                        "right_answer": "2"
+                    }
+                ]
+            },
+            {
+                "id": 4000,
+                "question_type": 4,
+                "question_type_name": "填空题",
+                "question_num": 4,
+                "question_score": 20,
+                "question_list": [
+                    {
+                        "id": 4001,
+                        "question_name": "测试()测试测()试11111",
+                        "question_score": "10",
+                        "answers": [
+                            {
+                                "correct": 1,
+                                "user_answer": "1111",
+                                "right_answer": "1111"
+                            },
+                            {
+                                "correct": 0,
+                                "user_answer": "1111",
+                                "right_answer": "2222"
+                            }
+                        ]
+                    },
+                    {
+                        "id": 4002,
+                        "question_name": "测试()测试测()试22222",
+                        "question_score": "10",
+                        "answers": [
+                            {
+                                "correct": 1,
+                                "user_answer": "1111",
+                                "right_answer": "1111"
+                            },
+                            {
+                                "correct": 0,
+                                "user_answer": "1111",
+                                "right_answer": "2222"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 }

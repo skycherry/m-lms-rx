@@ -18,18 +18,18 @@
     <div class="page page-test">
         <div class="page-content">
             <!-- 测试中 -->
-            <section class="question-timing-modular">
+            <section class="question-timing-modular" v-if="isAnswer == 0">
                 <div class="bg">
                     <div class="info">
                         <div class="inner">
-                            <div class="title">Elearning试卷测试</div>
-                            <div class="time">倒计时：<van-count-down :time="time" format="mm:ss" @finish="timeFinished"></van-count-down></div>
+                            <div class="title van-ellipsis">{{paperName}}</div>
+                            <div class="time">倒计时：<van-count-down :time="totalTime" format="mm:ss" @finish="timeFinished"></van-count-down></div>
                         </div>
                     </div>
                 </div>
             </section>
             <!-- 完成测试 -->
-            <section class="question-result-modular" style="display: none">
+            <section class="question-result-modular" v-if="isAnswer == 1">
                 <div class="qr-bg">
                     <div class="qr-info">
                         <div class="qri-l">
@@ -40,15 +40,15 @@
                             </div>
                         </div>
                         <div class="qri-r">
-                            <p class="van-ellipsis">答题人：George.cheng</p>
-                            <p>总分：19分</p>
-                            <p><strong>得分：10分</strong></p>
+                            <p class="van-ellipsis">答题人：{{userName}}</p>
+                            <p>总分：{{totalScore}}分</p>
+                            <p><strong>得分：{{getScore}}分</strong></p>
                         </div>
                     </div>
                 </div>
                 <div class="qr-date">
-                    <span>交卷时间：2021-05-20 13:30</span>
-                    <span>用时：10分钟</span>
+                    <span>交卷时间：{{dateTime}}</span>
+                    <span>用时：{{takenTime}}分钟</span>
                 </div>
                 <div class="qr-detail">
                     <div class="qrd-table">
@@ -59,181 +59,491 @@
                             <van-col span="6">填空题</van-col>
                         </van-row>
                         <van-row class="qrd-bd">
-                            <van-col span="6">10分</van-col>
-                            <van-col span="6">8分</van-col>
-                            <van-col span="6">6分</van-col>
-                            <van-col span="6">2分</van-col>
+                            <van-col span="6">{{singleScore}}分</van-col>
+                            <van-col span="6">{{multipleScore}}分</van-col>
+                            <van-col span="6">{{judgeScore}}分</van-col>
+                            <van-col span="6">{{fillScore}}分</van-col>
                         </van-row>
                     </div>
                 </div>
             </section>
             <!-- 问题区域 -->
             <section class="question-modular">
-                <!-- 1 选择、 2 多选、 3 判断、 4 填空 -->
-                <div class="question-type">
-                    <div class="question-title"><span>单选题</span>（共<em>1</em>题，共<em>5</em>分）</div>
-                    <div class="question-item">
-                        <div class="question-card">
-                            <div class="card-header van-hairline--bottom">
-                                <div class="l">
-                                    <strong class="title">1.销售考试testing</strong>
-                                </div>
-                                <div class="r">
-                                    <span class="mark">5.00分</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <van-radio-group v-model="radio" class="my-radio">
-                                    <van-radio name="1">A.答案1设计解决答案1设计解决答案1设计解决答案1设计解决</van-radio>
-                                    <van-radio name="2">B.答案1设计</van-radio>
-                                    <van-radio name="3">C.桂冠</van-radio>
-                                    <van-radio name="4">D.什么东西</van-radio>
-                                </van-radio-group>
-                            </div>
-                        </div>
-                        <div class="question-result">正确答案是<span class="color-green">C</span>，你的答案是<span class="color-red">B</span>，你答错了</div>
-                    </div>
-                    <div class="question-item">
-                        <div class="question-card">
-                            <div class="card-header van-hairline--bottom">
-                                <div class="l">
-                                    <strong class="title">1.销售考试testing</strong>
-                                </div>
-                                <div class="r">
-                                    <span class="mark">5.00分</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <van-radio-group v-model="radio" class="my-radio">
-                                    <van-radio name="1">A.答案1设计解决答案1设计解决答案1设计解决答案1设计解决</van-radio>
-                                    <van-radio name="2">B.答案1设计</van-radio>
-                                    <van-radio name="3">C.桂冠</van-radio>
-                                    <van-radio name="4">D.什么东西</van-radio>
-                                </van-radio-group>
-                            </div>
-                        </div>
-                        <div class="question-result">正确答案是<span class="color-green">C</span>，你的答案是<span class="color-red">B</span>，你答错了</div>
-                    </div>
-                </div>
-                <div class="question-type">
-                    <div class="question-title"><span>判断题</span>（共<em>1</em>题，共<em>4</em>分）</div>
-                    <div class="question-item">
-                        <div class="question-card">
-                            <div class="card-header van-hairline--bottom">
-                                <div class="l">
-                                    <strong class="title">1.销售考试testing</strong>
-                                </div>
-                                <div class="r">
-                                    <span class="mark">5.00分</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <van-radio-group v-model="radio" class="my-radio">
-                                    <van-radio name="1">A.正确</van-radio>
-                                    <van-radio name="2">B.错误</van-radio>
-                                </van-radio-group>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="question-type">
-                    <div class="question-title"><span>多选题</span>（共<em>1</em>题，共<em>5</em>分）</div>
-                    <div class="question-item">
-                        <div class="question-card">
-                            <div class="card-header van-hairline--bottom">
-                                <div class="l">
-                                    <strong class="title">1.销售考试test知否知否应是绿肥红瘦ing？</strong>
-                                </div>
-                                <div class="r">
-                                    <span class="mark">5.00分</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <van-checkbox-group v-model="result" class="my-checkbox">
-                                    <van-checkbox name="a" shape="square">A.答案1设计解决</van-checkbox>
-                                    <van-checkbox name="b" shape="square">B.答案1设计</van-checkbox>
-                                    <van-checkbox name="c" shape="square">C.桂冠</van-checkbox>
-                                    <van-checkbox name="d" shape="square">D.什么东西</van-checkbox>
-                                </van-checkbox-group>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="question-type">
-                    <div class="question-title"><span>填空题</span>（共<em>1</em>题，共<em>5</em>分）</div>
-                    <div class="question-item">
-                        <div class="question-card">
-                            <div class="card-header van-hairline--bottom">
-                                <div class="fill-title">销售考试te<span class="blanks">1</span>st知否知否应是绿肥红瘦ing.</div>
-                            </div>
-                            <div class="card-body fill-card">
-                                <van-cell-group class="my-field">
-                                    <van-field v-model="username" label="1."></van-field>
-                                </van-cell-group>
-                            </div>
-                        </div>
-                    </div>
+                <!-- 1 单选、 2 多选、 3 判断、 4 填空 -->
+                <div class="question-type" v-for="item in questions" :key="item.id">
+                    <div class="question-title"><span>{{item.question_type_name}}</span>（共<em>{{item.question_num}}</em>题，共<em>{{item.question_score}}</em>分）</div>
+                    <template v-for="(question, index) in item.question_list">
+                        <!-- 单选 -->
+                        <single v-if="item.question_type === QUESTION_TYPES.SINGLE"
+                            ref="questionItem"
+                            :type-id="item.id"
+                            :type="item.question_type"
+                            :is-answer="isAnswer"
+                            :index="index + 1"
+                            :question="question">
+                        </single>
+                        <!-- 多选 -->
+                        <multiple v-if="item.question_type === QUESTION_TYPES.MULTIPLE"
+                              ref="questionItem"
+                              :type-id="item.id"
+                              :type="item.question_type"
+                              :is-answer="isAnswer"
+                              :index="index + 1"
+                              :question="question">
+                        </multiple>
+                        <!-- 判断 -->
+                        <judge v-if="item.question_type === QUESTION_TYPES.JUDGE"
+                              ref="questionItem"
+                              :type-id="item.id"
+                              :type="item.question_type"
+                              :is-answer="isAnswer"
+                              :index="index + 1"
+                              :question="question">
+                        </judge>
+                        <!-- 填空 -->
+                        <fill v-if="item.question_type === QUESTION_TYPES.FILL"
+                              ref="questionItem"
+                              :type-id="item.id"
+                              :type="item.question_type"
+                              :is-answer="isAnswer"
+                              :index="index + 1"
+                              :question="question">
+                        </fill>
+                    </template>
                 </div>
             </section>
         </div>
     </div>
-    <van-tabbar class="test-tabbar van-hairline--top" style="display: none">
-        <van-button round block color="#667ec3">提交</van-button>
+    <van-tabbar class="test-tabbar van-hairline--top" v-if="isAnswer == 0">
+        <van-button round block color="#667ec3" @click="onSubmitBtnClick">提交</van-button>
     </van-tabbar>
 </div>
+<script type="text/tpl" id="single">
+<div class="question-item">
+    <div class="question-card">
+        <div class="card-header van-hairline--bottom">
+            <div class="l">
+                <strong class="title">{{index}}.{{question.question_name}}</strong>
+            </div>
+            <div class="r">
+                <span class="mark">{{question.question_score}}分</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <van-radio-group v-model="model" class="my-radio">
+                <van-radio v-for="answer in question.answer_list" :key="answer.value" :name="answer.value">
+                {{answer.flag}}.{{answer.content}}
+                </van-radio>
+            </van-radio-group>
+        </div>
+    </div>
+    <div class="question-result" v-if="isAnswer == 1">
+        正确答案是<span class="color-green">{{getDisplayValue(question.user_answer)}}</span>，
+        <template v-if="question.correct == 0">你的答案是<span class="color-red">{{getDisplayValue(question.right_answer)}}</span>，你答错了</template>
+        <template v-if="question.correct == 1">你答对了</template>
+    </div>
+</div>
+</script>
+<script type="text/tpl" id="multiple">
+    <div class="question-item">
+        <div class="question-card">
+            <div class="card-header van-hairline--bottom">
+                <div class="l">
+                    <strong class="title">{{index}}.{{question.question_name}}</strong>
+                </div>
+                <div class="r">
+                    <span class="mark">{{question.question_score}}分</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <van-checkbox-group v-model="model" class="my-checkbox">
+                    <van-checkbox shape="square" v-for="answer in question.answer_list" :key="answer.value" :name="answer.value">
+                    {{answer.flag}}.{{answer.content}}
+                    </van-checkbox>
+                </van-checkbox-group>
+            </div>
+        </div>
+        <div class="question-result" v-if="isAnswer == 1">
+            正确答案是<span class="color-green">{{getDisplayValue(question.user_answer)}}</span>，
+            <template v-if="question.correct == 0">你的答案是<span class="color-red">{{getDisplayValue(question.right_answer)}}</span>，你答错了</template>
+            <template v-if="question.correct == 1">你答对了</template>
+        </div>
+    </div>
+</script>
+<script type="text/tpl" id="judge">
+<div class="question-item">
+    <div class="question-card">
+        <div class="card-header van-hairline--bottom">
+            <div class="l">
+                <strong class="title">{{index}}.{{question.question_name}}</strong>
+            </div>
+            <div class="r">
+                <span class="mark">{{question.question_score}}分</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <van-radio-group v-model="model" class="my-radio">
+                <van-radio v-for="answer in question.answer_list" :key="answer.value" :name="answer.value">
+                {{answer.flag}}.{{answer.content}}
+                </van-radio>
+            </van-radio-group>
+        </div>
+    </div>
+    <div class="question-result" v-if="isAnswer == 1">
+        正确答案是<span class="color-green">{{getDisplayValue(question.user_answer)}}</span>，
+        <template v-if="question.correct == 0">你的答案是<span class="color-red">{{getDisplayValue(question.right_answer)}}</span>，你答错了</template>
+        <template v-if="question.correct == 1">你答对了</template>
+    </div>
+</div>
+</script>
+<script type="text/tpl" id="fill">
+    <div class="question-item">
+        <div class="question-card">
+            <div class="card-header van-hairline--bottom">
+                <div class="fill-title" v-html="questionName"></div>
+            </div>
+            <div class="card-body fill-card">
+                <van-cell-group class="my-field">
+                    <van-field v-for="(item, index) in model" :key="index" v-model="model[index]" :label="(index + 1) + '.'"></van-field>
+                </van-cell-group>
+            </div>
+        </div>
+        <div class="question-result" v-if="isAnswer == 1">
+            <div v-for="(ans, index) in question.answers" :key="index">
+            {{index + 1}}.正确答案是<span class="color-green">{{ans.right_answer}}</span>，
+            <template v-if="ans.correct == 0">你的答案是<span class="color-red">{{ans.user_answer}}</span>，你答错了</template>
+            <template v-if="ans.correct == 1">你答对了</template>
+            </div>
+        </div>
+    </div>
+</script>
 <!-- Path to Library JS-->
 <script src="../dist/lib/zepto.min.js"></script>
 <script src="../dist/lib/vue.min.js"></script>
 <script src="../dist/lib/vant/vant.min.js"></script>
 <!-- Path to Library JS-->
-<!--<script src="../dist/js/test.js"></script>-->
 <script>
-    $(function() {
-        var testPage = new Vue({
-            el: '#testPage',
-            data: function () {
+    var QUESTION_TYPES = {
+        SINGLE: 1,
+        MULTIPLE: 2,
+        JUDGE: 3,
+        FILL: 4
+    };
+    var tplSingle = $('#single').html();
+    var tplMultiple = $('#multiple').html();
+    var tplJudge = $('#judge').html();
+    var tplFill = $('#fill').html()
+
+    // 单选
+    Vue.component('single', {
+        template: tplSingle,
+        props: {
+            typeId: {
+                type: [String, Number],
+                default: ''
+            },
+            type: {
+                type: [String, Number],
+                default: ''
+            },
+            isAnswer: Number,
+            index: Number,
+            question: Object,
+        },
+        data: function() {
+            return {
+                model: ''
+            }
+        },
+        mounted: function () {
+            if(this.isAnswer) {
+                this.model = this.question.user_answer
+            }
+        },
+        methods: {
+            getDisplayValue(value) {
+                var displayValue = '';
+                this.question.answer_list.forEach(function (item) {
+                    if (item.value == value) {
+                        displayValue = item.flag;
+                    }
+                })
+                return displayValue;
+            },
+            getValue: function () {
                 return {
-                    radio: '1',
-                    checked: true,
-                    result: ['a'],
-                    username: '',
-                    time: 5*1000
-                }
+                    typeId: this.typeId,
+                    type: this.type,
+                    id: this.question.id,
+                    answer: this.model
+                };
             },
-            mounted: function () {
+        }
+    });
+    // 多选
+    Vue.component('multiple', {
+        template: tplMultiple,
+        props: {
+            typeId: {
+                type: [String, Number],
+                default: ''
             },
-            methods: {
-                getPaperInfo: function () {
-                    let _this = this;
-                    $.ajax({
-                        url: '../../data/test/paper.json',
-                        type: 'post',
-                        data: {},
-                        dataType: 'json',
-                        success: function (response) {
-                            if (response.status == 1) {
-                                console.log(response)
+            type: {
+                type: [String, Number],
+                default: ''
+            },
+            isAnswer: Number,
+            index: Number,
+            question: Object,
+        },
+        data: function() {
+            return {
+                model: [],
+            }
+        },
+        mounted: function () {
+            if(this.isAnswer) {
+                this.model = this.question.user_answer
+            }
+        },
+        methods: {
+            getDisplayValue(values) {
+                var displayValue = [];
+                this.question.answer_list.forEach(function (item) {
+                    if (values.indexOf(item.value) > -1) {
+                        displayValue.push(item.flag)
+                    }
+                })
+                return displayValue.join(',');
+            },
+            getValue: function () {
+                return {
+                    typeId: this.typeId,
+                    type: this.type,
+                    id: this.question.id,
+                    answer: this.model
+                };
+            }
+        }
+    });
+    // 判断
+    Vue.component('judge', {
+        template: tplJudge,
+        props: {
+            typeId: {
+                type: [String, Number],
+                default: ''
+            },
+            type: {
+                type: [String, Number],
+                default: ''
+            },
+            isAnswer: Number,
+            index: Number,
+            question: Object,
+        },
+        data: function() {
+            return {
+                model: '',
+            }
+        },
+        mounted: function () {
+            if(this.isAnswer) {
+                this.model = this.question.user_answer
+            }
+        },
+        methods: {
+            getDisplayValue(value) {
+                var displayValue = '';
+                this.question.answer_list.forEach(function (item) {
+                    if (item.value == value) {
+                        displayValue = item.flag;
+                    }
+                })
+                return displayValue;
+            },
+            getValue: function () {
+                return {
+                    typeId: this.typeId,
+                    type: this.type,
+                    id: this.question.id,
+                    answer: this.model
+                };
+            }
+        }
+    });
+    // 填空
+    Vue.component('fill', {
+        template: tplFill,
+        props: {
+            typeId: {
+                type: [String, Number],
+                default: ''
+            },
+            type: {
+                type: [String, Number],
+                default: ''
+            },
+            isAnswer: Number,
+            index: Number,
+            question: Object,
+        },
+        data: function() {
+            return {
+                questionName: '',
+                model: [],
+            }
+        },
+        created: function(){
+            var questionName = this.question.question_name;
+            var nameSplits = questionName.split('()');
+            var answerCount = nameSplits.length - 1;
 
-                            } else {
-
-                            }
-                        }
-                    })
-                },
-                timeFinished: function () {
-                    var that = this;
-                    that.$toast({
-                        type: "fail",
-                        message: "答题时间到",
-                        onClose: function () {
-                            //location.reload();
-                        }
-                    });
+            for (var index = 0; index < answerCount; index++) {
+                if(this.isAnswer
+                    && Array.isArray(this.question.answers)
+                    && this.question.answers[index]) {
+                    this.model.push(this.question.answers[index].user_answer || '');
+                } else {
+                    this.model.push('');
                 }
             }
-        });
-    })
+            var displayName = [];
+            nameSplits.forEach(function (txt, index) {
+                if (index > 0) {
+                    displayName.push('<span class="blanks">' + index + '</span>');
+                }
+                displayName.push(txt);
+            })
+            this.questionName = this.index + '.' + displayName.join('');
+        },
+        mounted: function () {
+        },
+        methods: {
+            getDisplayValue(values) {
+                var displayValue = [];
+                this.question.answer_list.forEach(function (item) {
+                    if (values.indexOf(item.value) > -1) {
+                        displayValue.push(item.flag)
+                    }
+                })
+                return displayValue.join(',');
+            },
+            getValue: function () {
+                return {
+                    typeId: this.typeId,
+                    type: this.type,
+                    id: this.question.id,
+                    answer: this.model
+                };
+            }
+        }
+    });
 
+    var testPage = new Vue({
+        el: '#testPage',
+        data: function () {
+            return {
+                QUESTION_TYPES: QUESTION_TYPES,
+                paperName: '',
+                totalTime: 100000,
+                isAnswer: 0,
+                userName: '',
+                totalScore: '',
+                getScore: '',
+                singleScore: '',
+                multipleScore: '',
+                judgeScore: '',
+                fillScore: '',
+                dateTime: '',
+                takenTime: '',
+                questions: [],
+            }
+        },
+        mounted: function () {
+            this.getPaperInfo();
+        },
+        methods: {
+            getPaperInfo: function () {
+                let _this = this;
+                $.ajax({
+                    url: '../data/test/paper.json',
+                    type: 'get',
+                    data: {},
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status == 1) {
+                            var resData = response.data;
+                            _this.paperName = resData.paperName;
+                            _this.totalTime = resData.totalTime;
+                            _this.isAnswer = resData.isAnswer;
+                            _this.userName = resData.userName;
+                            _this.totalScore = resData.totalScore;
+                            _this.getScore = resData.getScore;
+                            _this.singleScore = resData.singleScore;
+                            _this.multipleScore = resData.multipleScore;
+                            _this.judgeScore = resData.judgeScore;
+                            _this.fillScore = resData.fillScore;
+                            _this.dateTime = resData.dateTime;
+                            _this.takenTime = resData.takenTime;
+                            _this.questions = resData.questions;
+                        } else {
+
+                        }
+                    }
+                })
+            },
+            timeFinished: function () {
+                var that = this;
+                that.$toast({
+                    type: "fail",
+                    message: "答题时间到",
+                    onClose: function () {
+                        that.submitData();
+                    }
+                });
+            },
+            submitData: function () {
+                var that = this;
+                var answers = [];
+                this.$refs.questionItem.forEach(function ($vdom) {
+                    answers.push($vdom.getValue());
+                });
+                // 提交数据
+                $.ajax({
+                    url: '',
+                    type: 'post',
+                    dataType: 'json',
+                    data: { answers: JSON.stringify(answers)},
+                    success: function (response) {
+                        if (response.status == 1) {
+                            that.$toast({
+                                type: "success",
+                                message: response.msg,
+                                onClose: function () {
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            that.$toast(response.msg);
+                        }
+                    }
+                })
+            },
+            onSubmitBtnClick: function () {
+                var that = this;
+                window.vant.Dialog.confirm({
+                    message: '答题时间到',
+                })
+                .then(() => {
+                    that.submitData();
+                })
+                .catch(() => {
+                    // on cancel
+                });
+            }
+        }
+    });
 </script>
 </body>
 </html>
