@@ -3,8 +3,8 @@
     "msg": "成功",
     "data": {
         "paperName": "Elearning试卷测试",
-        "totalTime": 20000,
-        "isAnswer": 0,
+        "totalTime": 200000,
+        "isAnswer": 1,
         "userName": "Carly.He",
         "totalScore": 100,
         "getScore": 50,

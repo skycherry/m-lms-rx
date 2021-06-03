@@ -1,0 +1,97 @@
+{
+    "status": 1,
+    "msg": "成功",
+    "data": {
+        "paperName": "Elearning问卷111",
+        "isAnswer": 1,
+        "question_list": [
+            {
+                "id": 1001,
+                "question_type": 1,
+                "question_name": "问卷调差支持创建那些项目？",
+                "answer_list": [
+                    {
+                        "flag": "A",
+                        "value": "1",
+                        "content": "问卷1 a"
+                    },
+                    {
+                        "flag": "B",
+                        "value": "2",
+                        "content": "问卷1 b"
+                    },
+                    {
+                        "flag": "C",
+                        "value": "3",
+                        "content": "问卷1 c"
+                    },
+                    {
+                        "flag": "D",
+                        "value": "4",
+                        "content": "问卷1 d"
+                    }
+                ],
+                "user_answer": "2"
+            },
+            {
+                "id": 1002,
+                "question_type": 2,
+                "question_name": "你是建那些项目？",
+                "answer_list": [
+                    {
+                        "flag": "A",
+                        "value": "1",
+                        "content": "问卷2 a"
+                    },
+                    {
+                        "flag": "B",
+                        "value": "2",
+                        "content": "问卷2 b"
+                    },
+                    {
+                        "flag": "C",
+                        "value": "3",
+                        "content": "问卷2 c"
+                    },
+                    {
+                        "flag": "D",
+                        "value": "4",
+                        "content": "问卷2 d"
+                    }
+                ],
+                "user_answer": ["2","3"]
+            },
+            {
+                "id": 1003,
+                "question_type": 3,
+                "question_name": "请为使用体验打分？",
+                "answer_list": [
+                    {
+                        "id": 10031,
+                        "label": "网站导航"
+                    },
+                    {
+                        "id": 10032,
+                        "label": "视觉体验"
+                    }
+                ],
+                "answers": [
+                    {
+                        "id": 10031,
+                        "user_answer": "2"
+                    },
+                    {
+                        "id": 10032,
+                        "user_answer": "3"
+                    }
+                ]
+            },
+            {
+                "id": 1004,
+                "question_type": 4,
+                "question_name": "若您对有意见与建议，欢迎填写在以下输入框中",
+                "user_answer": "啦啦啦啦啦啦啦啦啦"
+            }
+        ]
+    }
+}

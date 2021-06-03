@@ -21,73 +21,112 @@
                 <div class="bg">
                     <div class="info">
                         <em class="icon"></em>
-                        <span>Elearning问卷</span>
+                        <span class="van-ellipsis">{{paperName}}</span>
                     </div>
                 </div>
             </section>
             <!-- 问题区域 -->
             <section class="question-modular">
-                <div class="question-type">
-                    <div class="question-title"><span>1.问卷调差支持创建那些项目？（多选）</span></div>
-                    <div class="question-card">
-                        <div class="card-body">
-                            <van-checkbox-group v-model="result" class="my-checkbox">
-                                <van-checkbox name="a" shape="square">A.答案1设计解决</van-checkbox>
-                                <van-checkbox name="b" shape="square">B.答案1设计</van-checkbox>
-                                <van-checkbox name="c" shape="square">C.桂冠</van-checkbox>
-                                <van-checkbox name="d" shape="square">D.什么东西</van-checkbox>
-                            </van-checkbox-group>
-                        </div>
-                    </div>
-                </div>
-                <div class="question-type">
-                    <div class="question-title"><span>2.你是建那些项目？（单选）</span></div>
-                    <div class="question-card">
-                        <div class="card-body">
-                            <van-radio-group v-model="radio" class="my-radio">
-                                <van-radio name="1">A.答案1设计解决答案1设计解决答案1设计解决答案1设计解决</van-radio>
-                                <van-radio name="2">B.答案1设计</van-radio>
-                                <van-radio name="3">C.桂冠</van-radio>
-                                <van-radio name="4">D.什么东西</van-radio>
-                            </van-radio-group>
-                        </div>
-                    </div>
-                </div>
-                <div class="question-type">
-                    <div class="question-title"><span>3.请为使用体验打分？</span></div>
-                    <div class="question-mark">
-                        <div class="mark-item">
-                            <div class="item-title">网站导航</div>
-                            <div class="item-mark">
-                                <van-rate v-model="value" color="#667ec3" void-icon="star" void-color="#e3e3e3"></van-rate>
-                            </div>
-                        </div>
-                        <div class="mark-item">
-                            <div class="item-title">网站导航</div>
-                            <div class="item-mark">
-                                <van-rate v-model="value" color="#667ec3" void-icon="star" void-color="#e3e3e3"></van-rate>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="question-type">
-                    <div class="question-title"><span>4.若您对有意见与建议，欢迎填写在以下输入框中</span></div>
-                    <div class="question-card">
-                        <div class="card-body">
-                            <div class="card-textarea">
-                                <textarea class="my-textarea"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- 1 单选、 2 多选、 3 判断、 4 填空 -->
+                <template v-for="(item, index) in question_list" :key="item.id">
+                    <!-- 单选 -->
+                    <single v-if="item.question_type === QUESTION_TYPES.SINGLE"
+                            ref="questionItem"
+                            :is-answer="isAnswer"
+                            :index="index + 1"
+                            :question="item">
+                    </single>
+                    <!-- 多选 -->
+                    <multiple v-if="item.question_type === QUESTION_TYPES.MULTIPLE"
+                              ref="questionItem"
+                              :is-answer="isAnswer"
+                              :index="index + 1"
+                              :question="item">
+                    </multiple>
+                    <!-- 评分 -->
+                    <star-rate v-if="item.question_type === QUESTION_TYPES.STAR"
+                              ref="questionItem"
+                              :is-answer="isAnswer"
+                              :index="index + 1"
+                              :question="item">
+                    </star-rate>
+                    <!-- 文本 -->
+                    <text-edit v-if="item.question_type === QUESTION_TYPES.TEXT"
+                              ref="questionItem"
+                              :is-answer="isAnswer"
+                              :index="index + 1"
+                              :question="item">
+                    </text-edit>
+                </template>
             </section>
         </div>
     </div>
-    <van-tabbar class="test-tabbar van-hairline--top">
-        <van-button round block color="#667ec3">提交</van-button>
+    <van-tabbar class="test-tabbar van-hairline--top" v-if="isAnswer == 0">
+        <van-button round block color="#667ec3" @click="onSubmitBtnClick">提交</van-button>
     </van-tabbar>
 </div>
-
+<script type="text/html" id="single">
+<div class="question-type">
+    <div class="question-title"><span>{{index}}.{{question.question_name}}（单选）</span></div>
+    <div class="question-card">
+        <div class="card-body">
+            <van-radio-group v-model="model" class="my-radio" :disabled="isAnswer == 1">
+                <van-radio v-for="answer in question.answer_list" :key="answer.value" :name="answer.value">
+                    {{answer.flag}}.{{answer.content}}
+                </van-radio>
+            </van-radio-group>
+        </div>
+    </div>
+</div>
+</script>
+<script type="text/html" id="multiple">
+<div class="question-type">
+    <div class="question-title"><span>{{index}}.{{question.question_name}}（多选）</span></div>
+    <div class="question-card">
+        <div class="card-body">
+            <van-checkbox-group v-model="model" class="my-checkbox" :disabled="isAnswer == 1">
+                <van-checkbox shape="square" v-for="answer in question.answer_list" :key="answer.value" :name="answer.value">
+                    {{answer.flag}}.{{answer.content}}
+                </van-checkbox>
+            </van-checkbox-group>
+        </div>
+    </div>
+</div>
+</script>
+<script type="text/html" id="starRate">
+<div class="question-type">
+    <div class="question-title"><span>{{index}}.{{question.question_name}}</span></div>
+    <div class="question-mark">
+        <template v-for="item in question.answer_list" :key="item.id">
+            <mark-item ref="markItem"
+                       :is-answer="isAnswer"
+                       :answers="question.answers"
+                       :mark="item">
+            </mark-item>
+        </template>
+    </div>
+</div>
+</script>
+<script type="text/html" id="markItem">
+<div class="mark-item">
+    <div class="item-title">{{mark.label}}</div>
+    <div class="item-mark">
+        <van-rate v-model="model" :readonly="isAnswer == 1" color="#667ec3" void-icon="star" void-color="#e3e3e3"></van-rate>
+    </div>
+</div>
+</script>
+<script type="text/html" id="textEdit">
+<div class="question-type">
+    <div class="question-title"><span>{{index}}.{{question.question_name}}</span></div>
+    <div class="question-card">
+        <div class="card-body">
+            <div class="card-textarea">
+                <textarea class="my-textarea" v-model="model" :disabled="isAnswer == 1"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+</script>
 <!-- Path to Library JS-->
 <script src="../dist/lib/zepto.min.js"></script>
 <script src="../dist/lib/vue.min.js"></script>
@@ -95,25 +134,289 @@
 <!-- Path to Library JS-->
 <script>
     $(function() {
-        var testPage = new Vue({
+        var QUESTION_TYPES = {
+            SINGLE: 1,
+            MULTIPLE: 2,
+            STAR: 3,
+            TEXT: 4,
+        };
+
+        var tplSingle = $('#single').html();
+        var tplMultiple = $('#multiple').html();
+        var tplStarRate = $('#starRate').html();
+        var tplMarkItem = $('#markItem').html();
+        var tplTextEdit = $('#textEdit').html();
+
+
+        // 单选
+        Vue.component('single', {
+            template: tplSingle,
+            props: {
+                isAnswer: Number,
+                index: Number,
+                question: Object,
+            },
+            data: function() {
+                return {
+                    model: ''
+                }
+            },
+            created: function () {
+                if(this.isAnswer) {
+                    this.model = this.question.user_answer
+                }
+            },
+            methods: {
+                checkUserAnswer () {
+                    return !this.model;
+                },
+                getValue: function () {
+                    return {
+                        id: this.question.id,
+                        type: this.question.question_type,
+                        answer: this.model
+                    };
+                },
+            }
+        });
+        // 多选
+        Vue.component('multiple', {
+            template: tplMultiple,
+            props: {
+                isAnswer: Number,
+                index: Number,
+                question: Object,
+            },
+            data: function() {
+                return {
+                    model: [],
+                }
+            },
+            created: function () {
+                if(this.isAnswer) {
+                    this.model = this.question.user_answer
+                }
+            },
+            methods: {
+                checkUserAnswer () {
+                    return !this.model.length;
+                },
+                getValue: function () {
+                    return {
+                        id: this.question.id,
+                        type: this.question.question_type,
+                        answer: this.model
+                    };
+                }
+            }
+        });
+        // 评分
+        Vue.component('starRate', {
+            template: tplStarRate,
+            props: {
+                isAnswer: Number,
+                index: Number,
+                question: Object,
+            },
+            data: function() {
+                return {
+                    answer: [],
+                }
+            },
+            created: function () {
+                if(this.isAnswer) {
+                    this.answer = this.question.answers;
+                }
+            },
+            methods: {
+                checkUserAnswer () {
+                    var $markItem = this.$refs.markItem;
+                    if ($markItem && $markItem.length) {
+                        for (let i = 0; i < $markItem.length; i++) {
+                            if ($markItem[i].checkUserAnswer()) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                },
+                getValue: function () {
+                    var answers = [];
+                    this.$refs.markItem.forEach(function ($vdom) {
+                        answers.push($vdom.getValue());
+                    });
+
+                    return {
+                        id: this.question.id,
+                        type: this.question.question_type,
+                        answer: answers
+                    };
+                }
+            }
+        });
+        // 星星
+        Vue.component('markItem', {
+            template: tplMarkItem,
+            props: {
+                isAnswer: Number,
+                mark: Object,
+                answers: Array
+            },
+            data: function() {
+                return {
+                    model: '',
+                }
+            },
+            created: function(){
+                var that = this;
+                if(that.isAnswer) {
+                    that.answers.forEach(function(item) {
+                        if(that.mark.id == item.id){
+                            that.model = item.user_answer
+                        }
+                    });
+                }
+            },
+            methods: {
+                checkUserAnswer () {
+                    return !this.model;
+                },
+                getValue: function () {
+                    return {
+                        id: this.mark.id,
+                        answer: this.model
+                    };
+                }
+            }
+        });
+        // 文本
+        Vue.component('textEdit', {
+            template: tplTextEdit,
+            props: {
+                isAnswer: Number,
+                index: Number,
+                question: Object,
+            },
+            data: function() {
+                return {
+                    model: ''
+                }
+            },
+            created: function () {
+                if(this.isAnswer) {
+                    this.model = this.question.user_answer
+                }
+            },
+            methods: {
+                checkUserAnswer () {
+                    return !this.model;
+                },
+                getValue: function () {
+                    return {
+                        id: this.question.id,
+                        type: this.question.question_type,
+                        answer: this.model
+                    };
+                },
+            }
+        });
+
+        // 单选
+        var surveyPage = new Vue({
             el: '#surveyPage',
             data: function () {
                 return {
-                    radio: '1',
-                    checked: true,
-                    result: ['a'],
-                    username: '',
-                    value: 3,
+                    QUESTION_TYPES: QUESTION_TYPES,
+                    paperName: '',
+                    isAnswer: -1,
+                    question_list: [],
                 }
             },
-            mounted: function () {
+            created: function () {
+                this.getPaperInfo();
             },
             methods: {
+                getPaperInfo: function () {
+                    var that = this;
+                    $.ajax({
+                        url: '../data/test/survey.json',
+                        type: 'get',
+                        data: {},
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.status == 1) {
+                                var resData = response.data;
+                                that.paperName = resData.paperName;
+                                that.isAnswer = resData.isAnswer;
+                                that.question_list = resData.question_list;
 
+                            } else {
+                                that.$toast(response.msg);
+                            }
+                        }
+                    })
+                },
+                submitData: function () {
+                    var that = this;
+                    var answers = [];
+                    this.$refs.questionItem.forEach(function ($vdom) {
+                        answers.push($vdom.getValue());
+                    });
+                    // 提交数据
+                    $.ajax({
+                        url: '',
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            answers: JSON.stringify(answers)
+                        },
+                        success: function (response) {
+                            if (response.status == 1) {
+                                that.$toast({
+                                    type: "success",
+                                    message: response.msg,
+                                    onClose: function () {
+                                        location.reload();
+                                    }
+                                });
+                            } else {
+                                that.$toast(response.msg);
+                            }
+                        }
+                    })
+                },
+                onSubmitBtnClick: function () {
+                    var that = this;
+                    if (that.checkUserAnswer()) {
+                        window.vant.Dialog.alert({
+                            message: '您还有题未答完'
+                        })
+                    } else {
+                        window.vant.Dialog.confirm({
+                            message: '确认提交？',
+                        })
+                            .then(() => {
+                                that.submitData();
+                            })
+                            .catch(() => {
+                                // on cancel
+                            });
+                    }
+                },
+                checkUserAnswer: function () {
+                    var $questionItem = this.$refs.questionItem;
+                    if ($questionItem && $questionItem.length) {
+                        for (let i = 0; i < $questionItem.length; i++) {
+                            if ($questionItem[i].checkUserAnswer()) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
             }
         });
     })
-
 </script>
 </body>
 </html>
