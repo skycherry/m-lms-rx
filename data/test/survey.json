@@ -3,10 +3,10 @@
     "msg": "成功",
     "data": {
         "paperName": "Elearning问卷111",
-        "isAnswer": 1,
+        "isAnswer": 0,
         "question_list": [
             {
-                "id": 1001,
+                "id": "1001",
                 "question_type": 1,
                 "question_name": "问卷调差支持创建那些项目？",
                 "answer_list": [

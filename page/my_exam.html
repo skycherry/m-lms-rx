@@ -76,9 +76,10 @@
                         :finished-text="examList.length ? '没有更多了' : '暂无考试信息'"
                         @load="onLoad">
                         <div class="list-item van-hairline--bottom"
+                             :class="examType == 0 ? 'list-test' : 'list-survey'"
                              v-for="(item, index) in examList"
                              :key="index">
-                            <div class="item-content">
+                            <div class="item-content" v-if="examType == 0">
                                 <div class="item-title van-ellipsis">
                                     <van-tag color="#5eb6d7" v-if="item.complete == 0">已完成</van-tag>
                                     <van-tag color="#d7b15e" v-else-if="item.complete == 1">未完成</van-tag>
@@ -96,6 +97,20 @@
                                 </van-row>
                                 <div class="item-mark">{{ item.mark }}分</div>
                                 <a :href="item.url" class="item-link">查看</a>
+                            </div>
+                            <div class="item-content" v-if="examType == 1">
+                                <div class="item-left">
+                                    <div class="item-title van-multi-ellipsis--l2">{{ item.courseTitle }}</div>
+                                    <div class="item-date">完成时间：2021-04-20 </div>
+                                    <div class="item-flag">
+                                        <van-tag color="#5eb6d7" v-if="item.complete == 0">已完成</van-tag>
+                                        <van-tag color="#d7b15e" v-else-if="item.complete == 1">未完成</van-tag>
+                                        <van-tag color="#999999" v-else>过期</van-tag>
+                                    </div>
+                                </div>
+                                <div class="item-right">
+                                    <a :href="item.url" class="item-link">查看</a>
+                                </div>
                             </div>
                         </div>
                     </van-list>
@@ -136,8 +151,8 @@
                     },
                     examType: 0,
                     examTypeList: [
-                        { text: '线上课', value: 0 },
-                        { text: '线下课', value: 1 }
+                        { text: '试卷', value: 0 },
+                        { text: '问卷', value: 1 }
                     ],
                 };
             },

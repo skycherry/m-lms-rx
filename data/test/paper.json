@@ -4,7 +4,7 @@
     "data": {
         "paperName": "Elearning试卷测试",
         "totalTime": 200000,
-        "isAnswer": 1,
+        "isAnswer": 0,
         "userName": "Carly.He",
         "totalScore": 100,
         "getScore": 50,

@@ -112,10 +112,17 @@
                     </template>
                 </div>
             </section>
+            <!-- 提交 -->
+            <section class="question-footer" v-if="isAnswer == 0">
+                <van-button round block color="#667ec3" @click="onSubmitBtnClick">提交</van-button>
+            </section>
         </div>
     </div>
-    <van-tabbar class="test-tabbar van-hairline--top" v-if="isAnswer == 0">
-        <van-button round block color="#667ec3" @click="onSubmitBtnClick">提交</van-button>
+    <!-- 底部导航 -->
+    <van-tabbar v-model="tabbarActive" class="wow-tabbar">
+        <van-tabbar-item name="course" icon="course" url="./my_course.html">课程</van-tabbar-item>
+        <van-tabbar-item name="exam" icon="exam" url="./my_exam.html">考试</van-tabbar-item>
+        <van-tabbar-item name="record" icon="record" url="./my_record.html">学习记录</van-tabbar-item>
     </van-tabbar>
 </div>
 <script type="text/html" id="single">
@@ -445,6 +452,7 @@
         el: '#testPage',
         data: function () {
             return {
+                tabbarActive: '',
                 QUESTION_TYPES: QUESTION_TYPES,
                 paperName: '',
                 totalTime: 100000,
