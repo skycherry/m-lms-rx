@@ -87,7 +87,7 @@
                                     <span>{{ item.courseTitle }}</span>
                                 </div>
                                 <div class="item-name van-ellipsis">【试卷】{{ item.examName }} </div>
-                                <van-row class="item-info" gutter="10">
+                                <van-row class="item-info" gutter="10" v-if="item.complete == 0">
                                     <van-col span="12">
                                         <div class="info van-ellipsis">提交时间：{{ item.dateTime }}</div>
                                     </van-col>
@@ -95,13 +95,13 @@
                                         <div class="info van-ellipsis">批改时间：{{ item.correctTime }}</div>
                                     </van-col>
                                 </van-row>
-                                <div class="item-mark">{{ item.mark }}分</div>
+                                <div class="item-mark" :style="item.complete == 0 ? '' : 'opacity: 0'">{{ item.mark }}分</div>
                                 <a :href="item.url" class="item-link">查看</a>
                             </div>
                             <div class="item-content" v-if="examType == 1">
                                 <div class="item-left">
                                     <div class="item-title van-multi-ellipsis--l2">{{ item.courseTitle }}</div>
-                                    <div class="item-date">完成时间：2021-04-20 </div>
+                                    <div class="item-date" v-if="item.complete == 0">完成时间：2021-04-20 </div>
                                     <div class="item-flag">
                                         <van-tag color="#5eb6d7" v-if="item.complete == 0">已完成</van-tag>
                                         <van-tag color="#d7b15e" v-else-if="item.complete == 1">未完成</van-tag>
